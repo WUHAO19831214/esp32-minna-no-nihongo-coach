@@ -1,0 +1,8 @@
+{
+  "token": "replace-with-local-random-token",
+  "brightness": 75,
+  "indicator_hardware_enabled": true,
+  "indicator_buttons_enabled": true,
+  "indicator_brightness": 18,
+  "haptic_ms": 12
+}

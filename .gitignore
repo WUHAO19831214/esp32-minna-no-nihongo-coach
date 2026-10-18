@@ -1,0 +1,13 @@
+# Runtime caches & compiled binaries
+.runtime/
+backups/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Local device credentials
+bridge.local.json
+
+# Large raw MP3 audio files (manifest.json and download script are tracked)
+audio/minna_no_nihongo_1/lesson_*/*.mp3
+app/clip.mp3

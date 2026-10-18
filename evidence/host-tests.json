@@ -1,0 +1,11 @@
+{
+  "ok": true,
+  "checks": [
+    "flashcards flip + speak + next",
+    "3-option quiz answer + explanation + student log event",
+    "A-B repeater KEY_R state machine (off -> a_set -> loop -> off)",
+    "25-lesson 5x5 grid selector + GNN mastery summary",
+    "settings long-press + brightness + LED mute",
+    "all 5 pages rendered with DFN1 CJK/Japanese fonts"
+  ]
+}

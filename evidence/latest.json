@@ -1,0 +1,1625 @@
+{
+  "epoch": 1792300005,
+  "lesson": 12,
+  "flash_cat": "vocab",
+  "quiz_mode": "fill_blank",
+  "cards_by_cat": {
+    "vocab": [
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "雨",
+        "sub": "假名: あめ",
+        "back": "雨",
+        "detail": "雨 (あめ)",
+        "speak": "雨"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "北海道",
+        "sub": "假名: ほっかいどう",
+        "back": "北海道",
+        "detail": "北海道 (ほっかいどう)",
+        "speak": "北海道"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 助词",
+        "front": "〜より",
+        "sub": "假名: 〜より",
+        "back": "比〜",
+        "detail": "〜より (〜より)",
+        "speak": "〜より"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "夏",
+        "sub": "假名: なつ",
+        "back": "夏天",
+        "detail": "夏 (なつ)",
+        "speak": "夏"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 副词",
+        "front": "一番",
+        "sub": "假名: いちばん",
+        "back": "最",
+        "detail": "一番 (いちばん)",
+        "speak": "一番"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "パーティー",
+        "sub": "假名: パーティー",
+        "back": "晚会；派对",
+        "detail": "パーティー (パーティー)",
+        "speak": "パーティー"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 副词",
+        "front": "ずっと",
+        "sub": "假名: ずっと",
+        "back": "〜得多",
+        "detail": "ずっと (ずっと)",
+        "speak": "ずっと"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "空港",
+        "sub": "假名: くうこう",
+        "back": "机场",
+        "detail": "空港 (くうこう)",
+        "speak": "空港"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "どちら",
+        "sub": "假名: どちら",
+        "back": "哪一个",
+        "detail": "どちら (どちら)",
+        "speak": "どちら"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · い形容词",
+        "front": "速い",
+        "sub": "假名: はやい",
+        "back": "快；早",
+        "detail": "速い (はやい)",
+        "speak": "速い"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · い形容词",
+        "front": "遅い",
+        "sub": "假名: おそい",
+        "back": "慢",
+        "detail": "遅い (おそい)",
+        "speak": "遅い"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "海",
+        "sub": "假名: うみ",
+        "back": "海",
+        "detail": "海 (うみ)",
+        "speak": "海"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 连语",
+        "front": "どちらも",
+        "sub": "假名: どちらも",
+        "back": "两个都〜",
+        "detail": "どちらも (どちらも)",
+        "speak": "どちらも"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "てんぷら",
+        "sub": "假名: てんぷら",
+        "back": "天妇罗",
+        "detail": "てんぷら (てんぷら)",
+        "speak": "てんぷら"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "祇園祭",
+        "sub": "假名: ぎおんまつり",
+        "back": "祇园祭",
+        "detail": "祇園祭 (ぎおんまつり)",
+        "speak": "祇園祭"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 感叹词",
+        "front": "ただいま",
+        "sub": "假名: ただいま",
+        "back": "我回来了",
+        "detail": "ただいま (ただいま)",
+        "speak": "ただいま"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 感叹词",
+        "front": "お帰りなさい",
+        "sub": "假名: おかえりなさい",
+        "back": "你回来了",
+        "detail": "お帰りなさい (おかえりなさい)",
+        "speak": "お帰りなさい"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "お祭り",
+        "sub": "假名: おまつり",
+        "back": "庙会；庆典；节日",
+        "detail": "お祭り (おまつり)",
+        "speak": "お祭り"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 寒暄语",
+        "front": "わあ、すごい人ですね",
+        "sub": "假名: わあ、すごいひとですね",
+        "back": "哇，人好多啊",
+        "detail": "わあ、すごい人ですね (わあ、すごいひとですね)",
+        "speak": "わあ、すごい人ですね"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 句子",
+        "front": "疲れました",
+        "sub": "假名: つかれました",
+        "back": "我累了",
+        "detail": "疲れました (つかれました)",
+        "speak": "疲れました"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "雪",
+        "sub": "假名: ゆき",
+        "back": "雪",
+        "detail": "雪 (ゆき)",
+        "speak": "雪"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "世界",
+        "sub": "假名: せかい",
+        "back": "世界",
+        "detail": "世界 (せかい)",
+        "speak": "世界"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · 名词",
+        "front": "天気",
+        "sub": "假名: てんき",
+        "back": "天气",
+        "detail": "天気 (てんき)",
+        "speak": "天気"
+      },
+      {
+        "type": "vocab",
+        "tag": "L12 词汇 · い形容词",
+        "front": "涼しい",
+        "sub": "假名: すずしい",
+        "back": "凉快",
+        "detail": "涼しい (すずしい)",
+        "speak": "涼しい"
+      }
+    ],
+    "grammar": [
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 名词形容动词过去",
+        "front": "名詞／な形容詞でした",
+        "sub": "きのうは雨でした。",
+        "back": "名词句和な形容词句的过去肯定形用「でした」，过去否定形用「じゃありませんでした」或「ではありませんでした」。",
+        "detail": "きのうは雨でした。",
+        "speak": "きのうは雨でした。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · い形容词过去",
+        "front": "い形容詞かったです／い形容詞くなかったです",
+        "sub": "きのうは寒かったです。",
+        "back": "い形容词句的过去肯定形是把词尾「い」变成「かったです」。过去否定形是把「くないです」变成「くなかったです」。「いいです」的过去否",
+        "detail": "きのうは寒かったです。",
+        "speak": "きのうは寒かったです。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 比较表达",
+        "front": "名詞1は名詞2より形容詞です",
+        "sub": "北海道は九州より大きいです。",
+        "back": "以名词2为比较对象，来叙述名词1的性质和状态。「より」表示比较的基准，相当于“比”。",
+        "detail": "北海道は九州より大きいです。",
+        "speak": "北海道は九州より大きいです。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 二者比较",
+        "front": "名詞1と名詞2とどちらが形容詞ですか",
+        "sub": "サッカーと野球とどちらがおもしろいですか。",
+        "back": "将两者加以比较时，疑问词用「どちら」。回答时用「名詞1／名詞2のほうが形容詞です」。如果两者都一样，可以用「どちらも」。",
+        "detail": "サッカーと野球とどちらがおもしろいですか。",
+        "speak": "サッカーと野球とどちらがおもしろいですか。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 最高级表达",
+        "front": "名詞の中で疑問詞がいちばん形容詞ですか",
+        "sub": "わたしは1年で夏がいちばん好きです。",
+        "back": "「で」表示范围。本句型是在名词的范围中，选择形容词所表示的状态、性质程度最高的事物、地点、人物或时间等。要使用与被选事物属性相对",
+        "detail": "わたしは1年で夏がいちばん好きです。",
+        "speak": "わたしは1年で夏がいちばん好きです。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 形容词名词化",
+        "front": "形容詞の",
+        "sub": "カリナさんのかばんはどれですか。",
+        "back": "第2课学习了代替名词使用的「の」。本课中，与该用法相同，「形容詞の名詞」也可以省略名词，只保留「形容詞の」，用「の」来代替前句中",
+        "detail": "カリナさんのかばんはどれですか。",
+        "speak": "カリナさんのかばんはどれですか。"
+      },
+      {
+        "type": "grammar",
+        "tag": "L12 语法 · 旅行感想",
+        "front": "祇園祭はどうでしたか",
+        "sub": "ただいま。",
+        "back": "询问已经经历过的活动、旅行或事件的感想时，可以用「〜はどうでしたか」。回家时，进门的人说「ただいま」，在家的人说「お帰りなさい」",
+        "detail": "ただいま。",
+        "speak": "ただいま。"
+      }
+    ],
+    "sentence": [
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "きのうは雨でした。",
+        "sub": "名詞／な形容詞でした",
+        "back": "昨天下雨了。",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "きのうは雨でした。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "きのうの試験は簡単じゃありませんでした。",
+        "sub": "名詞／な形容詞でした",
+        "back": "昨天的考试不容易。",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "きのうの試験は簡単じゃありませんでした。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "京都は静かでしたか。",
+        "sub": "名詞／な形容詞でした",
+        "back": "京都安静吗？",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "京都は静かでしたか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "いいえ、静かじゃありませんでした。",
+        "sub": "名詞／な形容詞でした",
+        "back": "不，不安静。",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "いいえ、静かじゃありませんでした。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "きのうのパーティーはどうでしたか。",
+        "sub": "名詞／な形容詞でした",
+        "back": "昨天的晚会怎么样？",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "きのうのパーティーはどうでしたか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 名词形容动词过去",
+        "front": "とてもにぎやかでした。",
+        "sub": "名詞／な形容詞でした",
+        "back": "非常热闹。",
+        "detail": "句型: 名詞／な形容詞でした",
+        "speak": "とてもにぎやかでした。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "きのうは寒かったです。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "昨天很冷。",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "きのうは寒かったです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "きのうは暑かったです。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "昨天很热。",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "きのうは暑かったです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "きのうのパーティーはあまり楽しくなかったです。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "昨天的晚会不太有意思。",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "きのうのパーティーはあまり楽しくなかったです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "旅行は楽しかったですか。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "旅行愉快吗？",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "旅行は楽しかったですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "はい、楽しかったです。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "是的，很愉快。",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "はい、楽しかったです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "天気はよかったですか。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "天气好吗？",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "天気はよかったですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · い形容词过去",
+        "front": "いいえ、あまりよくなかったです。",
+        "sub": "い形容詞かったです／い形容詞くなかったです",
+        "back": "不，不太好。",
+        "detail": "句型: い形容詞かったです／い形容詞くなかったです",
+        "speak": "いいえ、あまりよくなかったです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 比较表达",
+        "front": "北海道は九州より大きいです。",
+        "sub": "名詞1は名詞2より形容詞です",
+        "back": "北海道比九州大。",
+        "detail": "句型: 名詞1は名詞2より形容詞です",
+        "speak": "北海道は九州より大きいです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 比较表达",
+        "front": "この車はあの車より大きいです。",
+        "sub": "名詞1は名詞2より形容詞です",
+        "back": "这辆车比那辆车大。",
+        "detail": "句型: 名詞1は名詞2より形容詞です",
+        "speak": "この車はあの車より大きいです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 比较表达",
+        "front": "ニューヨークは大阪より寒いですか。",
+        "sub": "名詞1は名詞2より形容詞です",
+        "back": "纽约比大阪冷吗？",
+        "detail": "句型: 名詞1は名詞2より形容詞です",
+        "speak": "ニューヨークは大阪より寒いですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 比较表达",
+        "front": "ええ、ずっと寒いです。",
+        "sub": "名詞1は名詞2より形容詞です",
+        "back": "是的，冷得多。",
+        "detail": "句型: 名詞1は名詞2より形容詞です",
+        "speak": "ええ、ずっと寒いです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "サッカーと野球とどちらがおもしろいですか。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "足球和棒球哪个有意思？",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "サッカーと野球とどちらがおもしろいですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "サッカーのほうがおもしろいです。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "足球有意思。",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "サッカーのほうがおもしろいです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "北海道と大阪とどちらが涼しいですか。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "北海道和大阪哪里凉快？",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "北海道と大阪とどちらが涼しいですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "春と秋とどちらが好きですか。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "春天和秋天喜欢哪个？",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "春と秋とどちらが好きですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "空港までバスと電車とどちらが速いですか。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "到机场公共汽车和电车哪个快？",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "空港までバスと電車とどちらが速いですか。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "電車のほうが速いです。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "电车更快。",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "電車のほうが速いです。"
+      },
+      {
+        "type": "sentence",
+        "tag": "L12 例句 · 二者比较",
+        "front": "海と山とどちらが好きですか。",
+        "sub": "名詞1と名詞2とどちらが形容詞ですか",
+        "back": "海和山喜欢哪个？",
+        "detail": "句型: 名詞1と名詞2とどちらが形容詞ですか",
+        "speak": "海と山とどちらが好きですか。"
+      }
+    ]
+  },
+  "quizzes_by_mode": {
+    "fill_blank": [
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "電車（　）ほうが速いです。",
+        "hint": "电车更快。",
+        "options": [
+          "の",
+          "を",
+          "に"
+        ],
+        "correct": 1,
+        "answer_sentence": "電車のほうが速いです。",
+        "expected_answer": "の",
+        "source_sentence": "電車のほうが速いです。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「の」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "電車のほうが速いです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "海（　）山とどちらが好きですか。",
+        "hint": "海和山喜欢哪个？",
+        "options": [
+          "と",
+          "へ",
+          "に"
+        ],
+        "correct": 1,
+        "answer_sentence": "海と山とどちらが好きですか。",
+        "expected_answer": "と",
+        "source_sentence": "海と山とどちらが好きですか。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "海と山とどちらが好きですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "北海道（　）九州より大きいです。",
+        "hint": "北海道比九州大。",
+        "options": [
+          "は",
+          "を",
+          "に"
+        ],
+        "correct": 1,
+        "answer_sentence": "北海道は九州より大きいです。",
+        "expected_answer": "は",
+        "source_sentence": "北海道は九州より大きいです。",
+        "target_label": "比较表达",
+        "target_pattern": "名詞1は名詞2より形容詞です",
+        "explanation": "正确助词「は」：比较表达 (名詞1は名詞2より形容詞です)",
+        "speak": "北海道は九州より大きいです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "日本料理の中（　）何がいちばん好きですか。",
+        "hint": "日本菜中最喜欢什么？",
+        "options": [
+          "に",
+          "で",
+          "へ"
+        ],
+        "correct": 2,
+        "answer_sentence": "日本料理の中で何がいちばん好きですか。",
+        "expected_answer": "で",
+        "source_sentence": "日本料理の中で何がいちばん好きですか。",
+        "target_label": "最高级表达",
+        "target_pattern": "名詞の中で疑問詞がいちばん形容詞ですか",
+        "explanation": "正确助词「で」：最高级表达 (名詞の中で疑問詞がいちばん形容詞ですか)",
+        "speak": "日本料理の中で何がいちばん好きですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "北海道（　）大阪とどちらが涼しいですか。",
+        "hint": "北海道和大阪哪里凉快？",
+        "options": [
+          "を",
+          "と",
+          "へ"
+        ],
+        "correct": 2,
+        "answer_sentence": "北海道と大阪とどちらが涼しいですか。",
+        "expected_answer": "と",
+        "source_sentence": "北海道と大阪とどちらが涼しいですか。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "北海道と大阪とどちらが涼しいですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "天気（　）よかったですか。",
+        "hint": "天气好吗？",
+        "options": [
+          "に",
+          "を",
+          "は"
+        ],
+        "correct": 3,
+        "answer_sentence": "天気はよかったですか。",
+        "expected_answer": "は",
+        "source_sentence": "天気はよかったですか。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "正确助词「は」：い形容词过去 (い形容詞かったです／い形容詞くなかったです)",
+        "speak": "天気はよかったですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "写真（　）たくさん撮りました。これです。",
+        "hint": "拍了很多照片。是这个。",
+        "options": [
+          "を",
+          "に",
+          "へ"
+        ],
+        "correct": 1,
+        "answer_sentence": "写真をたくさん撮りました。これです。",
+        "expected_answer": "を",
+        "source_sentence": "写真をたくさん撮りました。これです。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "正确助词「を」：旅行感想 (祇園祭はどうでしたか)",
+        "speak": "写真をたくさん撮りました。これです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "きのう（　）暑かったです。",
+        "hint": "昨天很热。",
+        "options": [
+          "を",
+          "へ",
+          "は"
+        ],
+        "correct": 3,
+        "answer_sentence": "きのうは暑かったです。",
+        "expected_answer": "は",
+        "source_sentence": "きのうは暑かったです。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "正确助词「は」：い形容词过去 (い形容詞かったです／い形容詞くなかったです)",
+        "speak": "きのうは暑かったです。"
+      }
+    ],
+    "correction": [
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 写真へたくさん撮りました。これです。",
+        "hint": "原意: 拍了很多照片。是这个。",
+        "options": [
+          "写真にたくさん撮りました。これです。",
+          "写真へたくさん撮りました。これです。",
+          "写真をたくさん撮りました。これです。"
+        ],
+        "correct": 3,
+        "answer_sentence": "写真をたくさん撮りました。これです。",
+        "expected_answer": "写真をたくさん撮りました。これです。",
+        "source_sentence": "写真をたくさん撮りました。これです。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "助词应为「を」而非「へ」(旅行感想)",
+        "speak": "写真をたくさん撮りました。これです。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 旅行を楽しかったですか。",
+        "hint": "原意: 旅行愉快吗？",
+        "options": [
+          "旅行を楽しかったですか。",
+          "旅行に楽しかったですか。",
+          "旅行は楽しかったですか。"
+        ],
+        "correct": 3,
+        "answer_sentence": "旅行は楽しかったですか。",
+        "expected_answer": "旅行は楽しかったですか。",
+        "source_sentence": "旅行は楽しかったですか。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "助词应为「は」而非「を」(い形容词过去)",
+        "speak": "旅行は楽しかったですか。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 弟をいちばん背が高いです。",
+        "hint": "原意: 弟弟最高。",
+        "options": [
+          "弟がいちばん背が高いです。",
+          "弟へいちばん背が高いです。",
+          "弟をいちばん背が高いです。"
+        ],
+        "correct": 1,
+        "answer_sentence": "弟がいちばん背が高いです。",
+        "expected_answer": "弟がいちばん背が高いです。",
+        "source_sentence": "弟がいちばん背が高いです。",
+        "target_label": "最高级表达",
+        "target_pattern": "名詞の中で疑問詞がいちばん形容詞ですか",
+        "explanation": "助词应为「が」而非「を」(最高级表达)",
+        "speak": "弟がいちばん背が高いです。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: きのうを暑かったです。",
+        "hint": "原意: 昨天很热。",
+        "options": [
+          "きのうは暑かったです。",
+          "きのうを暑かったです。",
+          "きのうに暑かったです。"
+        ],
+        "correct": 1,
+        "answer_sentence": "きのうは暑かったです。",
+        "expected_answer": "きのうは暑かったです。",
+        "source_sentence": "きのうは暑かったです。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "助词应为「は」而非「を」(い形容词过去)",
+        "speak": "きのうは暑かったです。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 京都を静かでしたか。",
+        "hint": "原意: 京都安静吗？",
+        "options": [
+          "京都は静かでしたか。",
+          "京都に静かでしたか。",
+          "京都を静かでしたか。"
+        ],
+        "correct": 1,
+        "answer_sentence": "京都は静かでしたか。",
+        "expected_answer": "京都は静かでしたか。",
+        "source_sentence": "京都は静かでしたか。",
+        "target_label": "名词形容动词过去",
+        "target_pattern": "名詞／な形容詞でした",
+        "explanation": "助词应为「は」而非「を」(名词形容动词过去)",
+        "speak": "京都は静かでしたか。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 祇園祭を京都の祭りでいちばん有名ですからね。",
+        "hint": "原意: 祇园祭是京都的庙会中最有名的。",
+        "options": [
+          "祇園祭は京都の祭りでいちばん有名ですから",
+          "祇園祭を京都の祭りでいちばん有名ですから",
+          "祇園祭に京都の祭りでいちばん有名ですから"
+        ],
+        "correct": 1,
+        "answer_sentence": "祇園祭は京都の祭りでいちばん有名ですからね。",
+        "expected_answer": "祇園祭は京都の祭りでいちばん有名ですからね。",
+        "source_sentence": "祇園祭は京都の祭りでいちばん有名ですからね。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "助词应为「は」而非「を」(旅行感想)",
+        "speak": "祇園祭は京都の祭りでいちばん有名ですからね。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: 祇園祭をどうでしたか。",
+        "hint": "原意: 祇园祭怎么样？",
+        "options": [
+          "祇園祭をどうでしたか。",
+          "祇園祭はどうでしたか。",
+          "祇園祭にどうでしたか。"
+        ],
+        "correct": 2,
+        "answer_sentence": "祇園祭はどうでしたか。",
+        "expected_answer": "祇園祭はどうでしたか。",
+        "source_sentence": "祇園祭はどうでしたか。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "助词应为「は」而非「を」(旅行感想)",
+        "speak": "祇園祭はどうでしたか。"
+      },
+      {
+        "mode": "correction",
+        "mode_label": "纠错重写",
+        "lesson": "012",
+        "prompt": "改错: きのうのパーティーをどうでしたか。",
+        "hint": "原意: 昨天的晚会怎么样？",
+        "options": [
+          "きのうのパーティーはどうでしたか。",
+          "きのうのパーティーにどうでしたか。",
+          "きのうのパーティーをどうでしたか。"
+        ],
+        "correct": 1,
+        "answer_sentence": "きのうのパーティーはどうでしたか。",
+        "expected_answer": "きのうのパーティーはどうでしたか。",
+        "source_sentence": "きのうのパーティーはどうでしたか。",
+        "target_label": "名词形容动词过去",
+        "target_pattern": "名詞／な形容詞でした",
+        "explanation": "助词应为「は」而非「を」(名词形容动词过去)",
+        "speak": "きのうのパーティーはどうでしたか。"
+      }
+    ],
+    "translate_zh_to_ja": [
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 是的，冷得多。",
+        "hint": "语法: 比较表达",
+        "options": [
+          "きのうは暑かったです。",
+          "ええ、ずっと寒いです。",
+          "お帰りなさい。"
+        ],
+        "correct": 2,
+        "answer_sentence": "ええ、ずっと寒いです。",
+        "expected_answer": "ええ、ずっと寒いです。",
+        "source_sentence": "ええ、ずっと寒いです。",
+        "target_label": "比较表达",
+        "target_pattern": "名詞1は名詞2より形容詞です",
+        "explanation": "标准表达：ええ、ずっと寒いです。",
+        "speak": "ええ、ずっと寒いです。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 昨天很冷。",
+        "hint": "语法: い形容词过去",
+        "options": [
+          "小さいのです。",
+          "きのうは寒かったです。",
+          "祇園祭はどうでしたか。"
+        ],
+        "correct": 2,
+        "answer_sentence": "きのうは寒かったです。",
+        "expected_answer": "きのうは寒かったです。",
+        "source_sentence": "きのうは寒かったです。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "标准表达：きのうは寒かったです。",
+        "speak": "きのうは寒かったです。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 足球和棒球哪个有意思？",
+        "hint": "语法: 二者比较",
+        "options": [
+          "ヨーロッパでどこがいちばんよかったですか",
+          "サッカーと野球とどちらがおもしろいですか",
+          "てんぷらがいちばん好きです。"
+        ],
+        "correct": 2,
+        "answer_sentence": "サッカーと野球とどちらがおもしろいですか。",
+        "expected_answer": "サッカーと野球とどちらがおもしろいですか。",
+        "source_sentence": "サッカーと野球とどちらがおもしろいですか。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "标准表达：サッカーと野球とどちらがおもしろいですか。",
+        "speak": "サッカーと野球とどちらがおもしろいですか。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 足球有意思。",
+        "hint": "语法: 二者比较",
+        "options": [
+          "サッカーのほうがおもしろいです。",
+          "はい、楽しかったです。",
+          "ええ、ずっと寒いです。"
+        ],
+        "correct": 1,
+        "answer_sentence": "サッカーのほうがおもしろいです。",
+        "expected_answer": "サッカーのほうがおもしろいです。",
+        "source_sentence": "サッカーのほうがおもしろいです。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "标准表达：サッカーのほうがおもしろいです。",
+        "speak": "サッカーのほうがおもしろいです。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 纽约比大阪冷吗？",
+        "hint": "语法: 比较表达",
+        "options": [
+          "ニューヨークは大阪より寒いですか。",
+          "1年でいつがいちばん寒いですか。",
+          "日本料理の中で何がいちばんおいしいですか"
+        ],
+        "correct": 1,
+        "answer_sentence": "ニューヨークは大阪より寒いですか。",
+        "expected_answer": "ニューヨークは大阪より寒いですか。",
+        "source_sentence": "ニューヨークは大阪より寒いですか。",
+        "target_label": "比较表达",
+        "target_pattern": "名詞1は名詞2より形容詞です",
+        "explanation": "标准表达：ニューヨークは大阪より寒いですか。",
+        "speak": "ニューヨークは大阪より寒いですか。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 是吗。",
+        "hint": "语法: 旅行感想",
+        "options": [
+          "そうですか。",
+          "弟がいちばん背が高いです。",
+          "サッカーと野球とどちらがおもしろいですか"
+        ],
+        "correct": 1,
+        "answer_sentence": "そうですか。",
+        "expected_answer": "そうですか。",
+        "source_sentence": "そうですか。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "标准表达：そうですか。",
+        "speak": "そうですか。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 不，不太好。",
+        "hint": "语法: い形容词过去",
+        "options": [
+          "てんぷらがいちばん好きです。",
+          "いいえ、あまりよくなかったです。",
+          "ニューヨークは大阪より寒いですか。"
+        ],
+        "correct": 2,
+        "answer_sentence": "いいえ、あまりよくなかったです。",
+        "expected_answer": "いいえ、あまりよくなかったです。",
+        "source_sentence": "いいえ、あまりよくなかったです。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "标准表达：いいえ、あまりよくなかったです。",
+        "speak": "いいえ、あまりよくなかったです。"
+      },
+      {
+        "mode": "translate_zh_to_ja",
+        "mode_label": "中译日",
+        "lesson": "012",
+        "prompt": "中译日: 欧洲哪里最好？",
+        "hint": "语法: 最高级表达",
+        "options": [
+          "ヨーロッパでどこがいちばんよかったですか",
+          "このかばんはどれですか。",
+          "北海道と大阪とどちらが涼しいですか。"
+        ],
+        "correct": 1,
+        "answer_sentence": "ヨーロッパでどこがいちばんよかったですか。",
+        "expected_answer": "ヨーロッパでどこがいちばんよかったですか。",
+        "source_sentence": "ヨーロッパでどこがいちばんよかったですか。",
+        "target_label": "最高级表达",
+        "target_pattern": "名詞の中で疑問詞がいちばん形容詞ですか",
+        "explanation": "标准表达：ヨーロッパでどこがいちばんよかったですか。",
+        "speak": "ヨーロッパでどこがいちばんよかったですか。"
+      }
+    ],
+    "review": [
+      {
+        "mode": "review",
+        "mode_label": "错题巩固",
+        "lesson": "013",
+        "prompt": "错题重做: わたしにすしを食べたいです。",
+        "hint": "ESP32练习误选「に」，正确应为「は」。",
+        "options": [
+          "わたしにすしに食べたいです。",
+          "わたしにすしへ食べたいです。",
+          "わたしにすしを食べたいです。"
+        ],
+        "correct": 2,
+        "answer_sentence": "わたしにすしへ食べたいです。",
+        "expected_answer": "わたしにすしへ食べたいです。",
+        "source_sentence": "わたしにすしへ食べたいです。",
+        "target_label": "错题复习",
+        "target_pattern": "错题复习",
+        "explanation": "错题诊断：ESP32练习误选「に」，正确应为「は」。",
+        "speak": "わたしにすしへ食べたいです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "京都（　）静かでしたか。",
+        "hint": "京都安静吗？",
+        "options": [
+          "は",
+          "に",
+          "を"
+        ],
+        "correct": 1,
+        "answer_sentence": "京都は静かでしたか。",
+        "expected_answer": "は",
+        "source_sentence": "京都は静かでしたか。",
+        "target_label": "名词形容动词过去",
+        "target_pattern": "名詞／な形容詞でした",
+        "explanation": "正确助词「は」：名词形容动词过去 (名詞／な形容詞でした)",
+        "speak": "京都は静かでしたか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "電車（　）ほうが速いです。",
+        "hint": "电车更快。",
+        "options": [
+          "で",
+          "を",
+          "の"
+        ],
+        "correct": 3,
+        "answer_sentence": "電車のほうが速いです。",
+        "expected_answer": "の",
+        "source_sentence": "電車のほうが速いです。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「の」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "電車のほうが速いです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "きのう（　）寒かったです。",
+        "hint": "昨天很冷。",
+        "options": [
+          "は",
+          "へ",
+          "を"
+        ],
+        "correct": 1,
+        "answer_sentence": "きのうは寒かったです。",
+        "expected_answer": "は",
+        "source_sentence": "きのうは寒かったです。",
+        "target_label": "い形容词过去",
+        "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+        "explanation": "正确助词「は」：い形容词过去 (い形容詞かったです／い形容詞くなかったです)",
+        "speak": "きのうは寒かったです。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "海（　）山とどちらが好きですか。",
+        "hint": "海和山喜欢哪个？",
+        "options": [
+          "へ",
+          "と",
+          "を"
+        ],
+        "correct": 2,
+        "answer_sentence": "海と山とどちらが好きですか。",
+        "expected_answer": "と",
+        "source_sentence": "海と山とどちらが好きですか。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "海と山とどちらが好きですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "サッカー（　）野球とどちらがおもしろいですか。",
+        "hint": "足球和棒球哪个有意思？",
+        "options": [
+          "を",
+          "と",
+          "へ"
+        ],
+        "correct": 2,
+        "answer_sentence": "サッカーと野球とどちらがおもしろいですか。",
+        "expected_answer": "と",
+        "source_sentence": "サッカーと野球とどちらがおもしろいですか。",
+        "target_label": "二者比较",
+        "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+        "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+        "speak": "サッカーと野球とどちらがおもしろいですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "ニューヨーク（　）大阪より寒いですか。",
+        "hint": "纽约比大阪冷吗？",
+        "options": [
+          "は",
+          "へ",
+          "を"
+        ],
+        "correct": 1,
+        "answer_sentence": "ニューヨークは大阪より寒いですか。",
+        "expected_answer": "は",
+        "source_sentence": "ニューヨークは大阪より寒いですか。",
+        "target_label": "比较表达",
+        "target_pattern": "名詞1は名詞2より形容詞です",
+        "explanation": "正确助词「は」：比较表达 (名詞1は名詞2より形容詞です)",
+        "speak": "ニューヨークは大阪より寒いですか。"
+      },
+      {
+        "mode": "fill_blank",
+        "mode_label": "填空练习",
+        "lesson": "012",
+        "prompt": "祇園祭（　）京都の祭りでいちばん有名ですからね。",
+        "hint": "祇园祭是京都的庙会中最有名的。",
+        "options": [
+          "に",
+          "は",
+          "を"
+        ],
+        "correct": 2,
+        "answer_sentence": "祇園祭は京都の祭りでいちばん有名ですからね。",
+        "expected_answer": "は",
+        "source_sentence": "祇園祭は京都の祭りでいちばん有名ですからね。",
+        "target_label": "旅行感想",
+        "target_pattern": "祇園祭はどうでしたか",
+        "explanation": "正确助词「は」：旅行感想 (祇園祭はどうでしたか)",
+        "speak": "祇園祭は京都の祭りでいちばん有名ですからね。"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "雨",
+      "sub": "假名: あめ",
+      "back": "雨",
+      "detail": "雨 (あめ)",
+      "speak": "雨"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "北海道",
+      "sub": "假名: ほっかいどう",
+      "back": "北海道",
+      "detail": "北海道 (ほっかいどう)",
+      "speak": "北海道"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 助词",
+      "front": "〜より",
+      "sub": "假名: 〜より",
+      "back": "比〜",
+      "detail": "〜より (〜より)",
+      "speak": "〜より"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "夏",
+      "sub": "假名: なつ",
+      "back": "夏天",
+      "detail": "夏 (なつ)",
+      "speak": "夏"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 副词",
+      "front": "一番",
+      "sub": "假名: いちばん",
+      "back": "最",
+      "detail": "一番 (いちばん)",
+      "speak": "一番"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "パーティー",
+      "sub": "假名: パーティー",
+      "back": "晚会；派对",
+      "detail": "パーティー (パーティー)",
+      "speak": "パーティー"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 副词",
+      "front": "ずっと",
+      "sub": "假名: ずっと",
+      "back": "〜得多",
+      "detail": "ずっと (ずっと)",
+      "speak": "ずっと"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "空港",
+      "sub": "假名: くうこう",
+      "back": "机场",
+      "detail": "空港 (くうこう)",
+      "speak": "空港"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "どちら",
+      "sub": "假名: どちら",
+      "back": "哪一个",
+      "detail": "どちら (どちら)",
+      "speak": "どちら"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · い形容词",
+      "front": "速い",
+      "sub": "假名: はやい",
+      "back": "快；早",
+      "detail": "速い (はやい)",
+      "speak": "速い"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · い形容词",
+      "front": "遅い",
+      "sub": "假名: おそい",
+      "back": "慢",
+      "detail": "遅い (おそい)",
+      "speak": "遅い"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "海",
+      "sub": "假名: うみ",
+      "back": "海",
+      "detail": "海 (うみ)",
+      "speak": "海"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 连语",
+      "front": "どちらも",
+      "sub": "假名: どちらも",
+      "back": "两个都〜",
+      "detail": "どちらも (どちらも)",
+      "speak": "どちらも"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "てんぷら",
+      "sub": "假名: てんぷら",
+      "back": "天妇罗",
+      "detail": "てんぷら (てんぷら)",
+      "speak": "てんぷら"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "祇園祭",
+      "sub": "假名: ぎおんまつり",
+      "back": "祇园祭",
+      "detail": "祇園祭 (ぎおんまつり)",
+      "speak": "祇園祭"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 感叹词",
+      "front": "ただいま",
+      "sub": "假名: ただいま",
+      "back": "我回来了",
+      "detail": "ただいま (ただいま)",
+      "speak": "ただいま"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 感叹词",
+      "front": "お帰りなさい",
+      "sub": "假名: おかえりなさい",
+      "back": "你回来了",
+      "detail": "お帰りなさい (おかえりなさい)",
+      "speak": "お帰りなさい"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "お祭り",
+      "sub": "假名: おまつり",
+      "back": "庙会；庆典；节日",
+      "detail": "お祭り (おまつり)",
+      "speak": "お祭り"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 寒暄语",
+      "front": "わあ、すごい人ですね",
+      "sub": "假名: わあ、すごいひとですね",
+      "back": "哇，人好多啊",
+      "detail": "わあ、すごい人ですね (わあ、すごいひとですね)",
+      "speak": "わあ、すごい人ですね"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 句子",
+      "front": "疲れました",
+      "sub": "假名: つかれました",
+      "back": "我累了",
+      "detail": "疲れました (つかれました)",
+      "speak": "疲れました"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "雪",
+      "sub": "假名: ゆき",
+      "back": "雪",
+      "detail": "雪 (ゆき)",
+      "speak": "雪"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "世界",
+      "sub": "假名: せかい",
+      "back": "世界",
+      "detail": "世界 (せかい)",
+      "speak": "世界"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · 名词",
+      "front": "天気",
+      "sub": "假名: てんき",
+      "back": "天气",
+      "detail": "天気 (てんき)",
+      "speak": "天気"
+    },
+    {
+      "type": "vocab",
+      "tag": "L12 词汇 · い形容词",
+      "front": "涼しい",
+      "sub": "假名: すずしい",
+      "back": "凉快",
+      "detail": "涼しい (すずしい)",
+      "speak": "涼しい"
+    }
+  ],
+  "quizzes": [
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "電車（　）ほうが速いです。",
+      "hint": "电车更快。",
+      "options": [
+        "の",
+        "を",
+        "に"
+      ],
+      "correct": 1,
+      "answer_sentence": "電車のほうが速いです。",
+      "expected_answer": "の",
+      "source_sentence": "電車のほうが速いです。",
+      "target_label": "二者比较",
+      "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+      "explanation": "正确助词「の」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+      "speak": "電車のほうが速いです。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "海（　）山とどちらが好きですか。",
+      "hint": "海和山喜欢哪个？",
+      "options": [
+        "と",
+        "へ",
+        "に"
+      ],
+      "correct": 1,
+      "answer_sentence": "海と山とどちらが好きですか。",
+      "expected_answer": "と",
+      "source_sentence": "海と山とどちらが好きですか。",
+      "target_label": "二者比较",
+      "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+      "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+      "speak": "海と山とどちらが好きですか。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "北海道（　）九州より大きいです。",
+      "hint": "北海道比九州大。",
+      "options": [
+        "は",
+        "を",
+        "に"
+      ],
+      "correct": 1,
+      "answer_sentence": "北海道は九州より大きいです。",
+      "expected_answer": "は",
+      "source_sentence": "北海道は九州より大きいです。",
+      "target_label": "比较表达",
+      "target_pattern": "名詞1は名詞2より形容詞です",
+      "explanation": "正确助词「は」：比较表达 (名詞1は名詞2より形容詞です)",
+      "speak": "北海道は九州より大きいです。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "日本料理の中（　）何がいちばん好きですか。",
+      "hint": "日本菜中最喜欢什么？",
+      "options": [
+        "に",
+        "で",
+        "へ"
+      ],
+      "correct": 2,
+      "answer_sentence": "日本料理の中で何がいちばん好きですか。",
+      "expected_answer": "で",
+      "source_sentence": "日本料理の中で何がいちばん好きですか。",
+      "target_label": "最高级表达",
+      "target_pattern": "名詞の中で疑問詞がいちばん形容詞ですか",
+      "explanation": "正确助词「で」：最高级表达 (名詞の中で疑問詞がいちばん形容詞ですか)",
+      "speak": "日本料理の中で何がいちばん好きですか。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "北海道（　）大阪とどちらが涼しいですか。",
+      "hint": "北海道和大阪哪里凉快？",
+      "options": [
+        "を",
+        "と",
+        "へ"
+      ],
+      "correct": 2,
+      "answer_sentence": "北海道と大阪とどちらが涼しいですか。",
+      "expected_answer": "と",
+      "source_sentence": "北海道と大阪とどちらが涼しいですか。",
+      "target_label": "二者比较",
+      "target_pattern": "名詞1と名詞2とどちらが形容詞ですか",
+      "explanation": "正确助词「と」：二者比较 (名詞1と名詞2とどちらが形容詞ですか)",
+      "speak": "北海道と大阪とどちらが涼しいですか。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "天気（　）よかったですか。",
+      "hint": "天气好吗？",
+      "options": [
+        "に",
+        "を",
+        "は"
+      ],
+      "correct": 3,
+      "answer_sentence": "天気はよかったですか。",
+      "expected_answer": "は",
+      "source_sentence": "天気はよかったですか。",
+      "target_label": "い形容词过去",
+      "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+      "explanation": "正确助词「は」：い形容词过去 (い形容詞かったです／い形容詞くなかったです)",
+      "speak": "天気はよかったですか。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "写真（　）たくさん撮りました。これです。",
+      "hint": "拍了很多照片。是这个。",
+      "options": [
+        "を",
+        "に",
+        "へ"
+      ],
+      "correct": 1,
+      "answer_sentence": "写真をたくさん撮りました。これです。",
+      "expected_answer": "を",
+      "source_sentence": "写真をたくさん撮りました。これです。",
+      "target_label": "旅行感想",
+      "target_pattern": "祇園祭はどうでしたか",
+      "explanation": "正确助词「を」：旅行感想 (祇園祭はどうでしたか)",
+      "speak": "写真をたくさん撮りました。これです。"
+    },
+    {
+      "mode": "fill_blank",
+      "mode_label": "填空练习",
+      "lesson": "012",
+      "prompt": "きのう（　）暑かったです。",
+      "hint": "昨天很热。",
+      "options": [
+        "を",
+        "へ",
+        "は"
+      ],
+      "correct": 3,
+      "answer_sentence": "きのうは暑かったです。",
+      "expected_answer": "は",
+      "source_sentence": "きのうは暑かったです。",
+      "target_label": "い形容词过去",
+      "target_pattern": "い形容詞かったです／い形容詞くなかったです",
+      "explanation": "正确助词「は」：い形容词过去 (い形容詞かったです／い形容詞くなかったです)",
+      "speak": "きのうは暑かったです。"
+    }
+  ],
+  "tracks": [
+    {
+      "index": 110,
+      "title": "110 第十二课单词",
+      "section": "单词",
+      "duration": 206
+    },
+    {
+      "index": 111,
+      "title": "111 第十二课文型",
+      "section": "文型",
+      "duration": 26
+    },
+    {
+      "index": 112,
+      "title": "112 第十二课例文",
+      "section": "例文",
+      "duration": 65
+    },
+    {
+      "index": 113,
+      "title": "113 第十二课会话",
+      "section": "会话",
+      "duration": 35
+    },
+    {
+      "index": 114,
+      "title": "114 第十二课练习A",
+      "section": "练习A",
+      "duration": 117
+    },
+    {
+      "index": 115,
+      "title": "115 第十二课练习B",
+      "section": "练习B",
+      "duration": 480
+    },
+    {
+      "index": 116,
+      "title": "116 第十二课练习C",
+      "section": "练习C",
+      "duration": 112
+    },
+    {
+      "index": 117,
+      "title": "117 第十二课问题1",
+      "section": "问题1",
+      "duration": 32
+    },
+    {
+      "index": 118,
+      "title": "118 第十二课问题2",
+      "section": "问题2",
+      "duration": 100
+    }
+  ],
+  "summary": {
+    "student_id": "default_student",
+    "current_lesson": "013",
+    "total_interactions": 34,
+    "accuracy": 97,
+    "mastered_labels": 3,
+    "pending_reviews": 1,
+    "gnn_focus": "判断句",
+    "gnn_action": "先复习「判断句」的核心用法，再做 3 道替换练习。"
+  },
+  "bt_name": "BV370",
+  "bt_connected": true,
+  "bt_devices": [
+    {
+      "is_audio": true,
+      "address": "f4-4e-fd-0e-11-fd",
+      "connected": true,
+      "name": "BV370",
+      "paired": true
+    },
+    {
+      "name": "AirPods Pro",
+      "connected": false,
+      "is_audio": true,
+      "paired": true,
+      "address": "2c-76-00-c5-6b-a0"
+    }
+  ],
+  "bt_scanning": false,
+  "audio_target": "bt"
+}

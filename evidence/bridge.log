@@ -1,0 +1,427 @@
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[ESP32 Event] {"id": "5302082-1", "created_ms": 5636805, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"id": "5302082-2", "created_ms": 5638077, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5639845, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-3", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640446, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-21", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640500, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-22", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640522, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-23", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640544, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-24", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640566, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-25", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640588, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-26", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640610, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-27", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5640633, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-28", "lesson": 6}
+[ESP32 Event] {"id": "5302082-29", "created_ms": 5651467, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"id": "5302082-30", "created_ms": 5653632, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5653969, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-33", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5654103, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-39", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5654125, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-40", "lesson": 6}
+[ESP32 Event] {"id": "5302082-41", "created_ms": 5654475, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5655002, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-42", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5655116, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-43", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5655137, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-44", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5655159, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-45", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5655181, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-46", "lesson": 6}
+[ESP32 Event] {"id": "5302082-47", "created_ms": 5655205, "type": "speak", "text": "読みます", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5659159, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-48", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5659276, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-49", "lesson": 6}
+[ESP32 Event] {"id": "5302082-50", "created_ms": 5662941, "type": "speak", "text": "買います", "lesson": 6}
+[ESP32 Event] {"id": "5302082-51", "created_ms": 5666590, "type": "speak", "text": "買います", "lesson": 6}
+[ESP32 Event] {"id": "5302082-52", "created_ms": 5671050, "type": "speak", "text": "買います", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5671534, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-53", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5672707, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-54", "lesson": 6}
+[ESP32 Event] {"id": "5302082-55", "created_ms": 5677844, "type": "speak", "text": "買います", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5680432, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-56", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5680967, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-74", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5680989, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-75", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681011, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-76", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681034, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-77", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681056, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-78", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681078, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-79", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681100, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-80", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5681122, "type": "audio_play", "start_sec": 2, "track_index": 52, "id": "5302082-81", "lesson": 6}
+[ESP32 Event] {"id": "5302082-82", "created_ms": 5708287, "type": "audio_stop"}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5709685, "type": "audio_play", "start_sec": 20, "track_index": 52, "id": "5302082-83", "lesson": 6}
+[ESP32 Event] {"ab_state": "loop", "end_sec": 55, "created_ms": 5723619, "type": "audio_play", "start_sec": 32, "track_index": 52, "id": "5302082-84", "lesson": 6}
+[ESP32 Event] {"ab_state": "loop", "end_sec": 40, "created_ms": 5732286, "type": "audio_play", "start_sec": 32, "track_index": 52, "id": "5302082-85", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5745738, "type": "audio_play", "start_sec": 35, "track_index": 52, "id": "5302082-86", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5782925, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-87", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783801, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-116", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783822, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-117", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783850, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-118", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783872, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-119", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783894, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-120", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783916, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-121", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783938, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-122", "lesson": 6}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5783960, "type": "audio_play", "start_sec": 70, "track_index": 52, "id": "5302082-123", "lesson": 6}
+[ESP32 Event] {"id": "5302082-124", "created_ms": 5796478, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 12}
+[ESP32 Event] {"ab_state": "off", "end_sec": 26, "created_ms": 5819060, "type": "audio_play", "start_sec": 0, "track_index": 53, "id": "5302082-125", "lesson": 12}
+[ESP32 Event] {"id": "5302082-126", "created_ms": 5820733, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 13}
+[ESP32 Event] {"id": "5302082-127", "created_ms": 5902427, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 12}
+[ESP32 Event] {"id": "5302082-128", "created_ms": 5903211, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 11}
+[ESP32 Event] {"id": "5302082-129", "created_ms": 5905450, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 12}
+[ESP32 Event] {"id": "5302082-130", "created_ms": 5905960, "type": "select_lesson", "flash_cat": "vocab", "quiz_mode": "fill_blank", "lesson": 13}
+[ESP32 Event] {"ab_state": "a_set", "end_sec": 224, "created_ms": 5921441, "type": "audio_play", "start_sec": 0, "track_index": 52, "id": "5302082-131", "lesson": 13}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5922480, "type": "audio_play", "start_sec": 26, "track_index": 52, "id": "5302082-164", "lesson": 13}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5922504, "type": "audio_play", "start_sec": 26, "track_index": 52, "id": "5302082-165", "lesson": 13}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5922527, "type": "audio_play", "start_sec": 26, "track_index": 52, "id": "5302082-166", "lesson": 13}
+[ESP32 Event] {"id": "5302082-172", "created_ms": 5927241, "type": "audio_stop"}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5927995, "type": "audio_play", "start_sec": 27, "track_index": 52, "id": "5302082-173", "lesson": 13}
+[ESP32 Event] {"id": "5302082-174", "created_ms": 5928595, "type": "audio_stop"}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5929222, "type": "audio_play", "start_sec": 28, "track_index": 52, "id": "5302082-175", "lesson": 13}
+[ESP32 Event] {"ab_state": "loop", "end_sec": 35, "created_ms": 5930687, "type": "audio_play", "start_sec": 29, "track_index": 52, "id": "5302082-176", "lesson": 13}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5931293, "type": "audio_play", "start_sec": 30, "track_index": 52, "id": "5302082-177", "lesson": 13}
+[ESP32 Event] {"ab_state": "loop", "end_sec": 37, "created_ms": 5932471, "type": "audio_play", "start_sec": 31, "track_index": 52, "id": "5302082-178", "lesson": 13}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5933482, "type": "audio_play", "start_sec": 32, "track_index": 52, "id": "5302082-179", "lesson": 13}
+[ESP32 Event] {"id": "5302082-180", "created_ms": 5942441, "type": "audio_stop"}
+[ESP32 Event] {"id": "5302082-181", "quiz_mode": "fill_blank", "created_ms": 5960841, "type": "quiz_answer", "lesson": 13, "speak": "日本語を勉強しました。それから友達と映画を見ました。", "quiz_index": 1, "chosen": 1}
+[Quiz Sync -> minna-no-nihongo-agent] {"ok": true, "is_correct": false, "diagnosis": "ESP32练习误选「に」，正确应为「は」。"}
+[ESP32 Event] {"ab_state": "off", "end_sec": 224, "created_ms": 5967023, "type": "audio_play", "start_sec": 4, "track_index": 52, "id": "5302082-182", "lesson": 13}
+[ESP32 Event] {"track_index": 52, "id": "5302082-342", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970658}
+[ESP32 Event] {"track_index": 52, "id": "5302082-343", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970681}
+[ESP32 Event] {"track_index": 52, "id": "5302082-344", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970703}
+[ESP32 Event] {"track_index": 52, "id": "5302082-345", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970725}
+[ESP32 Event] {"track_index": 52, "id": "5302082-346", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970747}
+[ESP32 Event] {"track_index": 52, "id": "5302082-347", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970769}
+[ESP32 Event] {"track_index": 52, "id": "5302082-348", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970791}
+[ESP32 Event] {"track_index": 52, "id": "5302082-349", "start_sec": 4, "end_sec": 224, "lesson": 13, "ab_state": "off", "type": "audio_play", "created_ms": 5970813}
+[ESP32 Event] {"id": "5974755-1", "type": "select_lesson", "lesson": 13, "quiz_mode": "fill_blank", "flash_cat": "vocab", "created_ms": 5981953}
+[ESP32 Event] {"id": "5974755-2", "lesson": 13, "flash_cat": "sentence", "type": "select_flash_cat", "created_ms": 5989862}
+[ESP32 Event] {"id": "5974755-3", "lesson": 13, "flash_cat": "grammar", "type": "select_flash_cat", "created_ms": 5991784}
+[ESP32 Event] {"id": "5974755-4", "lesson": 13, "flash_cat": "sentence", "type": "select_flash_cat", "created_ms": 5993352}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-5", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6024383}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-35", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025206}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-36", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025228}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-37", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025250}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-38", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025272}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-39", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025294}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-40", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025316}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-41", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025338}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-42", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 39, "track_index": 46, "created_ms": 6025360}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-43", "ab_state": "loop", "end_sec": 88, "lesson": 13, "start_sec": 82, "track_index": 46, "created_ms": 6077047}
+[ESP32 Event] {"id": "5974755-44", "type": "audio_stop", "created_ms": 6079170}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-45", "ab_state": "loop", "end_sec": 78, "lesson": 13, "start_sec": 77, "track_index": 46, "created_ms": 6080401}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-46", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084099}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-53", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084582}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-54", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084604}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-55", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084626}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-56", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084649}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-57", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084671}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-58", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084694}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-59", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084716}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-60", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6084738}
+[ESP32 Event] {"id": "5974755-61", "type": "select_lesson", "lesson": 13, "quiz_mode": "fill_blank", "flash_cat": "sentence", "created_ms": 6087845}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-79", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6092986}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-89", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093217}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-90", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093289}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-91", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093311}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-92", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093333}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-93", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093358}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-94", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093381}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-95", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093402}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-96", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6093424}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-106", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6101692}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-117", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102006}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-118", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102028}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-119", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102052}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-120", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102074}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-121", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102097}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-122", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102119}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-123", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102141}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-124", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6102163}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-128", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110289}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-140", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110594}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-141", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110616}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-142", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110639}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-143", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110663}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-144", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110686}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-145", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110708}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-146", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110730}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-147", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6110752}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-148", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118382}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-154", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118580}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-155", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118602}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-156", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118624}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-157", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118646}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-158", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118669}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-159", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118691}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-160", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118713}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-161", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6118735}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-163", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126358}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-174", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126630}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-175", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126673}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-176", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126695}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-177", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126718}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-178", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126741}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-179", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126763}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-180", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126787}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-181", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6126809}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-182", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134602}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-186", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134712}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-187", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134754}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-188", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134776}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-189", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134798}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-190", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134822}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-191", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134846}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-192", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134867}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-193", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6134889}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-194", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6142778}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-200", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6142954}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-201", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6142975}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-202", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6142997}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-203", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6143019}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-204", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6143041}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-205", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6143063}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-206", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6143085}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-207", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6143107}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-214", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151040}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-225", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151341}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-226", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151363}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-227", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151386}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-228", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151408}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-229", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151433}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-230", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151455}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-231", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151477}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-232", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6151499}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-233", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159228}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-253", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159691}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-254", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159739}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-255", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159761}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-256", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159784}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-257", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159820}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-258", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159842}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-259", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159864}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-260", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6159886}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-271", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168076}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-282", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168405}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-283", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168428}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-284", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168450}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-285", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168472}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-286", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168495}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-287", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168517}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-288", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168542}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-289", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6168564}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-298", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6176730}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-309", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177006}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-310", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177047}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-311", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177069}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-312", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177091}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-313", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177113}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-314", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177136}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-315", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177158}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-316", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6177183}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-335", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6185549}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-360", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186155}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-361", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186177}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-362", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186199}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-363", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186223}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-364", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186246}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-365", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186268}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-366", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186293}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-367", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6186315}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-378", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194351}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-389", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194634}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-390", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194677}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-391", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194699}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-392", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194721}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-393", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194743}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-394", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194765}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-395", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194791}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-396", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6194813}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-397", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6202899}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-401", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6202999}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-402", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203069}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-403", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203093}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-404", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203116}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-405", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203138}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-406", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203160}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-407", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203183}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-408", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6203205}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-417", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211345}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-427", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211569}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-428", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211666}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-429", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211688}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-430", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211710}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-431", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211732}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-432", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211754}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-433", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211777}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-434", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6211799}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-441", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220066}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-451", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220322}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-452", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220363}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-453", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220385}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-454", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220407}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-455", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220429}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-456", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220451}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-457", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220473}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-458", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6220495}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-459", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228419}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-467", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228661}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-468", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228683}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-469", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228708}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-470", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228730}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-471", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228754}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-472", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228776}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-473", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228798}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-474", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6228820}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-480", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6236644}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-490", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6236864}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-491", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6236952}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-492", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6236974}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-493", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6236998}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-494", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6237020}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-495", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6237042}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-496", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6237065}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-497", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6237087}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-506", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245352}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-518", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245657}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-519", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245679}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-520", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245701}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-521", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245723}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-522", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245746}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-523", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245768}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-524", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245793}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-525", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6245815}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-543", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6253850}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-554", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254151}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-555", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254173}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-556", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254196}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-557", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254219}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-558", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254241}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-559", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254264}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-560", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254286}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-561", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6254308}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-562", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262102}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-570", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262325}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-571", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262348}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-572", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262370}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-573", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262394}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-574", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262419}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-575", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262441}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-576", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262464}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-577", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6262486}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-596", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270538}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-607", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270824}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-608", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270845}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-609", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270867}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-610", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270889}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-611", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270911}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-612", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270934}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-613", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270956}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-614", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6270981}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-620", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279250}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-631", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279551}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-632", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279573}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-633", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279595}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-634", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279617}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-635", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279639}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-636", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279662}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-637", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279684}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-638", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6279706}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-639", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287437}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-645", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287611}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-646", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287652}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-647", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287674}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-648", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287696}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-649", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287718}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-650", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287740}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-651", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287765}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-652", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6287788}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-657", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6295929}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-669", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296241}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-670", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296263}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-671", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296286}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-672", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296308}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-673", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296331}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-674", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296353}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-675", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296375}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-676", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6296397}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-688", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6304649}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-699", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6304950}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-700", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6304973}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-701", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6304995}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-702", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6305017}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-703", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6305040}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-704", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6305062}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-705", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6305085}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-706", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6305107}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-711", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313250}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-736", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313819}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-737", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313863}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-738", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313885}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-739", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313907}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-740", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313929}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-741", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313952}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-742", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313974}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-743", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6313998}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-744", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322088}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-753", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322292}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-754", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322364}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-755", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322388}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-756", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322410}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-757", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322432}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-758", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322454}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-759", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322476}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-760", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6322499}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-762", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330451}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-773", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330754}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-774", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330776}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-775", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330798}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-776", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330823}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-777", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330845}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-778", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330867}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-779", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330890}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-780", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6330912}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-791", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6338941}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-804", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339277}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-805", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339299}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-806", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339321}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-807", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339343}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-808", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339366}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-809", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339387}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-810", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339409}
+[ESP32 Event] {"type": "audio_play", "id": "5974755-811", "ab_state": "off", "end_sec": 182, "lesson": 13, "start_sec": 78, "track_index": 46, "created_ms": 6339431}
+[ESP32 Event] {"id": "6376571-1", "type": "select_lesson", "lesson": 10, "quiz_mode": "fill_blank", "flash_cat": "vocab", "created_ms": 6555514}
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[ESP32 Event] {"created_ms": 24450, "type": "select_lesson", "flash_cat": "vocab", "id": "10537-1", "quiz_mode": "fill_blank", "lesson": 12}
+[ESP32 Event] {"created_ms": 37621, "ab_state": "off", "volume": 80, "track_index": 111, "end_sec": 26, "type": "audio_play", "id": "10537-2", "start_sec": 0, "lesson": 12}
+[ESP32 Event] {"created_ms": 43625, "type": "volume_change", "volume": 90, "playing": true, "id": "10537-3", "slow_tts": false}
+[ESP32 Event] {"created_ms": 44281, "type": "volume_change", "volume": 100, "playing": true, "id": "10537-4", "slow_tts": false}
+[ESP32 Event] {"created_ms": 132470, "ab_state": "off", "volume": 100, "track_index": 111, "end_sec": 26, "type": "audio_play", "id": "10537-5", "start_sec": 0, "lesson": 12}
+[ESP32 Event] {"created_ms": 141951, "ab_state": "loop", "volume": 100, "track_index": 111, "end_sec": 9, "type": "audio_play", "id": "10537-6", "start_sec": 6, "lesson": 12}
+[ESP32 Event] {"created_ms": 150951, "ab_state": "loop", "volume": 100, "track_index": 111, "end_sec": 9, "type": "audio_play", "id": "10537-7", "start_sec": 5, "lesson": 12}
+[ESP32 Event] {"created_ms": 203621, "ab_state": "loop", "volume": 100, "track_index": 111, "end_sec": 9, "type": "audio_play", "id": "10537-8", "start_sec": 5, "lesson": 12}
+[ESP32 Event] {"created_ms": 205362, "type": "select_lesson", "flash_cat": "vocab", "id": "10537-9", "quiz_mode": "fill_blank", "lesson": 13}
+[ESP32 Event] {"created_ms": 205923, "quiz_mode": "review", "id": "10537-10", "type": "select_quiz_mode", "lesson": 13}
+[ESP32 Event] {"created_ms": 212908, "type": "speak", "text": "ご注文は？", "slow_tts": false, "volume": 100, "id": "10537-11", "lesson": 13}
+[ESP32 Event] {"created_ms": 215056, "type": "speak", "text": "ご注文は？", "slow_tts": false, "volume": 100, "id": "10537-12", "lesson": 13}
+[ESP32 Event] {"created_ms": 215239, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-13", "start_sec": 2, "lesson": 13}
+[ESP32 Event] {"created_ms": 215727, "type": "speak", "text": "ご注文は？", "slow_tts": false, "volume": 100, "id": "10537-14", "lesson": 13}
+[ESP32 Event] {"created_ms": 217784, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-15", "start_sec": 2, "lesson": 13}
+[ESP32 Event] {"created_ms": 253760, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-16", "start_sec": 37, "lesson": 13}
+[ESP32 Event] {"created_ms": 262075, "ab_state": "loop", "volume": 100, "track_index": 119, "end_sec": 49, "type": "audio_play", "id": "10537-17", "start_sec": 43, "lesson": 13}
+[ESP32 Event] {"created_ms": 266150, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-18", "start_sec": 47, "lesson": 13}
+[ESP32 Event] {"created_ms": 271637, "ab_state": "loop", "volume": 100, "track_index": 119, "end_sec": 52, "type": "audio_play", "id": "10537-19", "start_sec": 47, "lesson": 13}
+[ESP32 Event] {"created_ms": 272006, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-20", "start_sec": 47, "lesson": 13}
+[ESP32 Event] {"created_ms": 273572, "id": "10537-21", "type": "audio_stop"}
+[ESP32 Event] {"created_ms": 275587, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-22", "start_sec": 47, "lesson": 13}
+[ESP32 Event] {"created_ms": 311522, "ab_state": "off", "volume": 100, "track_index": 119, "end_sec": 188, "type": "audio_play", "id": "10537-23", "start_sec": 82, "lesson": 13}
+[ESP32 Event] {"created_ms": 328685, "ab_state": "off", "volume": 100, "track_index": 120, "end_sec": 21, "type": "audio_play", "id": "10537-24", "start_sec": 0, "lesson": 13}
+[ESP32 Event] {"created_ms": 364827, "ab_state": "off", "volume": 100, "track_index": 121, "end_sec": 54, "type": "audio_play", "id": "10537-25", "start_sec": 0, "lesson": 13}
+[ESP32 Event] {"created_ms": 370543, "id": "10537-26", "type": "audio_stop"}
+[ESP32 Event] {"created_ms": 371924, "ab_state": "off", "volume": 100, "track_index": 121, "end_sec": 54, "type": "audio_play", "id": "10537-27", "start_sec": 5, "lesson": 13}
+[ESP32 Event] {"created_ms": 373633, "id": "10537-28", "type": "audio_stop"}
+[ESP32 Event] {"created_ms": 406774, "ab_state": "off", "volume": 100, "track_index": 122, "end_sec": 58, "type": "audio_play", "id": "10537-29", "start_sec": 0, "lesson": 13}
+[ESP32 Event] {"created_ms": 443704, "ab_state": "off", "volume": 100, "track_index": 122, "end_sec": 58, "type": "audio_play", "id": "10537-30", "start_sec": 35, "lesson": 13}
+[ESP32 Event] {"created_ms": 450828, "id": "10537-31", "type": "audio_stop"}
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[Minna no Nihongo Bridge] Web console running at http://127.0.0.1:7865
+[ESP32 Event] {"type": "bt_control", "created_ms": 2218995, "action": "status", "audio_target": "bt", "id": "2145391-1"}
+[ESP32 Event] {"ab_state": "off", "id": "2145391-2", "end_sec": 224, "audio_target": "bt", "type": "audio_play", "created_ms": 2229159, "start_sec": 0, "lesson": 6, "track_index": 52, "volume": 80}
+[ESP32 Event] {"volume": 90, "type": "volume_change", "id": "2145391-3", "slow_tts": false, "playing": true, "audio_target": "bt", "created_ms": 2249280}
+[ESP32 Event] {"type": "select_lesson", "created_ms": 2262347, "quiz_mode": "fill_blank", "lesson": 17, "id": "2145391-4", "flash_cat": "vocab"}
+[ESP32 Event] {"ab_state": "off", "id": "2145391-5", "end_sec": 183, "audio_target": "bt", "type": "audio_play", "created_ms": 2266655, "start_sec": 0, "lesson": 17, "track_index": 157, "volume": 90}
+[ESP32 Event] {"type": "select_lesson", "created_ms": 2273285, "quiz_mode": "fill_blank", "lesson": 12, "id": "2145391-6", "flash_cat": "vocab"}
+[ESP32 Event] {"ab_state": "off", "id": "2145391-7", "end_sec": 206, "audio_target": "bt", "type": "audio_play", "created_ms": 2279699, "start_sec": 0, "lesson": 12, "track_index": 110, "volume": 90}
+[ESP32 Event] {"type": "audio_stop", "created_ms": 2296158, "id": "2145391-8"}

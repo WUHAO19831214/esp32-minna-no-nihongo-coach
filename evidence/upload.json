@@ -1,0 +1,215 @@
+[
+  {
+    "path": "/apps/minna_nihongo/assets/cjk-16.dfn",
+    "bytes": 138674,
+    "sha256": "0f32647e3d4f8541bef5322b5144eebb73075b11b16bbbe98f074ac3c5814679"
+  },
+  {
+    "path": "/apps/minna_nihongo/assets/cjk-20.dfn",
+    "bytes": 214298,
+    "sha256": "6065a5995b205a19b8817dac334d1840f26e6eb7af2d5b9db462efd7473ed3fa"
+  },
+  {
+    "path": "/apps/minna_nihongo/assets/cjk-26.dfn",
+    "bytes": 330548,
+    "sha256": "7b63b2fa33e5ae4faef3ae9fdccf03ee7e1256fff4ecdd2c5f4f9a61b39c8f4e"
+  },
+  {
+    "path": "/apps/minna_nihongo/assets/icon.jpg",
+    "bytes": 7315,
+    "sha256": "a9835b9d5104b041e8f220aaf2f5046abc05b9e7d4da18a10de1b14a2c26c8e0",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/assets/rounded-40.dfn",
+    "bytes": 1676,
+    "sha256": "aafbfbf3d0956db7f47b78258f2a7722c007b03f28cb50a91cdae27932784de3",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/config.example.json",
+    "bytes": 193,
+    "sha256": "cb11ec04584c6ea51a45b777316a50663352abeaee843bd2046a533ddf064c74",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/launcher.json",
+    "bytes": 162,
+    "sha256": "3092b440a92514f4dbbc95b6d029a6a7f15c393f69c2352f427538304259df5f",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L01.json",
+    "bytes": 41888,
+    "sha256": "215e43a78ee625866ca7bdecbd89bfcf4963069d636416ea887e3bec0a775e23"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L02.json",
+    "bytes": 45168,
+    "sha256": "d63d0a9b555c91da1d615bfc10f2ff96c907dfabb1988cefd3e5bae624d59afc"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L03.json",
+    "bytes": 43896,
+    "sha256": "4e9c20e0ae3a846c1a44dea0891f53e91cef482da6a7fd27ceb4c67d4e0d8d34"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L04.json",
+    "bytes": 46064,
+    "sha256": "9a24aa428e7b191826fd8f845c21fb234016216d4bb587098ffbffcdf1156fb9"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L05.json",
+    "bytes": 46699,
+    "sha256": "73f0bd61cb7643d1e1370b4fce70799ef800d4609659ed290844d5bd7e2d986f"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L06.json",
+    "bytes": 42579,
+    "sha256": "5dc22abb84dfe6f1872d6c62f3ac79dd495966b3d50b8b6938acce299bf78deb"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L07.json",
+    "bytes": 47966,
+    "sha256": "2504dc1d0dd2a18db15105ac6ce1fdcd6411e745db8029a10fe641a82901edd9"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L08.json",
+    "bytes": 47844,
+    "sha256": "c0f31f0294532f121231844cb3602b6f30d48a5a0c3f629335e918a814977cc8"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L09.json",
+    "bytes": 48758,
+    "sha256": "3aec4dc98939a664fab73a5de290269cec527b3cd3653c336a0b90b241e9ad91"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L10.json",
+    "bytes": 46394,
+    "sha256": "6b8ab2c919a36b469da5836511a5c6d16b8d2455fc96bb4a8fba88c1617562a7"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L11.json",
+    "bytes": 45553,
+    "sha256": "0f91f8b2956c3c14c1638b77f0d9adba1dff97bd5ac05840069549dc1d43dbd0"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L12.json",
+    "bytes": 49977,
+    "sha256": "d243ea1d4392c1e34d069561198d5e043cfdab345f0a737b07fbb5ce76da8e88"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L13.json",
+    "bytes": 48146,
+    "sha256": "c2086475fee887c6aa8e51608578939680fac69843c75447e7bc81e561528c68"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L14.json",
+    "bytes": 44009,
+    "sha256": "ab2df23a8a30b08955a7d44035c4e3b205757a214108b5f5968f34c6f3b02c27"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L15.json",
+    "bytes": 46408,
+    "sha256": "b8b1b5211f14b4fd88840304bc758d313674dab68ee9c9b153a33674e1cb2a56"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L16.json",
+    "bytes": 50511,
+    "sha256": "d0bb8e9897a43e37e1240b5d47ae22a938a70867ed163aa1905751a24be2b278"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L17.json",
+    "bytes": 44937,
+    "sha256": "4a7bacd2e68a363bfd98d994a2b98a1dee61fd2802accd28f2cf43e7bda74df4"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L18.json",
+    "bytes": 47599,
+    "sha256": "619a3f7946e26bc02dc70022cee251ffffea6d26b34e7abe333e77bb9a0b0e04"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L19.json",
+    "bytes": 49021,
+    "sha256": "a744dac922d1c8cd42107fbf8a0c84dbc9caacc52c88b4a081f50ed03e5dbe11"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L20.json",
+    "bytes": 44502,
+    "sha256": "c3e3d37d88057ae6f613745b089f2922817bf68881a8029289466fc570a6e6ac"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L21.json",
+    "bytes": 49880,
+    "sha256": "d8a7909cd36c5b2e1bde3506f5b6c50bc7da5c873433db878012a2ab5f9d638e"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L22.json",
+    "bytes": 50546,
+    "sha256": "a022678481049f57008bbdad44e9273fda2d5f0db53a04c04558758d24491f22"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L23.json",
+    "bytes": 50631,
+    "sha256": "088cf380bd3feb6e6f99419bd4d2fc0564b433ceecaa6139440590cedd418933"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L24.json",
+    "bytes": 54834,
+    "sha256": "26f91d4a8fd319047653e0d85581f744a4f7773c6666eb063aafcf2300ca9d1f"
+  },
+  {
+    "path": "/apps/minna_nihongo/lessons/L25.json",
+    "bytes": 51353,
+    "sha256": "16b78cc909e7997e399c9f6ed8fb05b932dfc16fc85e7a944322d950ae905e7b"
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/font_metrics.lua",
+    "bytes": 2588,
+    "sha256": "0bac2088ddb8554f64629dc6b92dff4296887a1853623d683446923eea24d09c",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/main.lua",
+    "bytes": 12258,
+    "sha256": "7f10d4cc509eb3dd332eec348597c518e3f421658ce4a0713365cec009859127"
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/model.lua",
+    "bytes": 30239,
+    "sha256": "fbd196121ed9f1370e753c417897a9e31b0c6080ee38ab05cbe03de18bbb2e21"
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/ownership.lua",
+    "bytes": 1570,
+    "sha256": "eb26138e8c47629f41ba8975f3826a9f10f252e58a5e232124ab3cc69c7c5d33",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/receiver.lua",
+    "bytes": 4256,
+    "sha256": "a1073847028ad42607b54ac4d4f895ba7016806b50ea3174c310758cfce660db",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/render.lua",
+    "bytes": 15802,
+    "sha256": "769dba350a82967a85eacc1bb1f2b672501d364dbe2ca29b95e5845ed5fa8d27"
+  },
+  {
+    "path": "/apps/minna_nihongo/scripts/verify.lua",
+    "bytes": 2126,
+    "sha256": "c4171e5e1695a4a3d930b548dda92cc666cd4cc5783d804472f6dfad24474730",
+    "cached": true
+  },
+  {
+    "path": "/apps/minna_nihongo/snapshot.json",
+    "bytes": 42800,
+    "sha256": "74a05c99f1164a8e068f9b86521c40a136ca14effbb456fa67b7fa2380e6dbf8"
+  },
+  {
+    "path": "/apps/minna_nihongo/clip.mp3",
+    "bytes": 8684,
+    "sha256": "03264e50ffc46d17a7ae8dbb58aedf489d300e5eb2d5fa08e8bd768512d5cf4a"
+  }
+]
