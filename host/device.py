@@ -44,99 +44,236 @@ def request(path: str, data=None, method: str = 'GET', content_type: str | None 
         raise
 
 
+OWN_MAIN = '/nand/apps/minna_nihongo/scripts/main.lua'
+MAX_LUA_SLOTS = 4
+# Foreground UI entry scripts, keyed by their FULL on-device path (never matched by suffix/substring).
+FOREGROUND_UIS = {
+    OWN_MAIN: 'minna',
+    '/nand/apps/ai_mac_mini/scripts/main.lua': 'mini',
+    '/nand/apps/ai_badge/scripts/main.lua': 'air',
+    '/nand/apps/pomodoro_clock/scripts/main.lua': 'pomodoro',
+}
+MINI_MAIN = '/nand/apps/ai_mac_mini/scripts/main.lua'
+STOP_WAIT_SEC = 6.0
+STOP_POLL_SEC = 0.4
+DEPLOY_FILES = ('main.lua', 'model.lua', 'render.lua', 'receiver.lua', 'ownership.lua', 'font_metrics.lua', 'verify.lua')
+LUA_NETWORK_ERRORS = (OSError, ValueError, KeyError)
+
+
+def _minna_token() -> str:
+    return json.loads((ROOT / 'bridge.local.json').read_text(encoding='utf-8'))['token']
+
+
+def _mini_token() -> str:
+    return json.loads(BADGE_BRIDGE_CFG.read_text(encoding='utf-8'))['token']
+
+
 def control(action: str, **extra) -> dict:
-    cfg = json.loads((ROOT / 'bridge.local.json').read_text(encoding='utf-8'))
     return json.loads(
-        request('/api/lua/minna_nihongo/control', {'token': cfg['token'], 'action': action, **extra}, 'POST')
+        request('/api/lua/minna_nihongo/control', {'token': _minna_token(), 'action': action, **extra}, 'POST')
     )
 
 
-def pause_badge_ui() -> dict:
-    """Politely stop ai_mac_mini UI & indicator_worker jobs so ESP32's 4-job limit has room for minna_nihongo."""
-    if not BADGE_BRIDGE_CFG.exists():
-        return {'ok': False, 'reason': 'no_badge_cfg'}
-    try:
-        bcfg = json.loads(BADGE_BRIDGE_CFG.read_text(encoding='utf-8'))
-        token = bcfg.get('token')
-        if not token:
-            return {'ok': False, 'reason': 'no_token'}
-        listed = json.loads(
-            request('/api/lua/ai_mac_mini/control', {'token': token, 'action': 'jobs'}, 'POST')
-        )
-        stopped = []
-        for line in (listed.get('result') or '').splitlines():
-            if any(
-                line.endswith(p)
-                for p in (
-                    'path=/nand/apps/ai_mac_mini/scripts/main.lua',
-                    'path=/nand/apps/ai_mac_mini/scripts/indicator_worker.lua',
-                    'path=/nand/apps/ai_badge/scripts/main.lua',
-                    'path=/nand/apps/ai_badge/scripts/indicator_worker.lua',
-                )
-            ):
-                jid = line.split(' | ', 1)[0]
-                request('/api/lua/ai_mac_mini/control', {'token': token, 'action': 'stop', 'id': jid}, 'POST')
-                stopped.append(jid)
-        return {'ok': True, 'stopped': stopped}
-    except Exception as exc:
-        return {'ok': False, 'error': str(exc)}
+def mini_control(action: str, **extra) -> dict:
+    """Mini's receiver route. Used only to list jobs and to stop a job whose full path was verified."""
+    return json.loads(
+        request('/api/lua/ai_mac_mini/control', {'token': _mini_token(), 'action': action, **extra}, 'POST')
+    )
 
 
-def switch_to_badge() -> dict:
-    """Stop minna_nihongo UI and restore AI Mac mini UI + indicators."""
-    try:
-        stop_app()
-    except Exception:
-        pass
-    if not BADGE_BRIDGE_CFG.exists():
-        return {'ok': False, 'reason': 'no_badge_cfg'}
-    bcfg = json.loads(BADGE_BRIDGE_CFG.read_text(encoding='utf-8'))
-    token = bcfg['token']
-    out = json.loads(request('/api/lua/ai_mac_mini/control', {'token': token, 'action': 'start'}, 'POST'))
-    return {'ok': True, 'badge_start': out}
+def parse_jobs(listing: str | None) -> list[dict]:
+    jobs = []
+    for line in (listing or '').splitlines():
+        head = line.split(' | ', 1)
+        match = re.search(r'path=(\S+)', line)
+        if len(head) == 2 and match:
+            jobs.append({'id': head[0].strip(), 'path': match.group(1), 'line': line})
+    return jobs
+
+
+def list_jobs() -> tuple[str | None, list[dict] | None]:
+    """Return (route, jobs); (None, None) when no receiver route can list jobs (state unknown)."""
+    for route, fn in (('minna', control), ('mini', mini_control)):
+        try:
+            res = fn('jobs')
+        except LUA_NETWORK_ERRORS:
+            continue
+        if res.get('ok'):
+            return route, parse_jobs(res.get('result'))
+    return None, None
+
+
+def foreground_state() -> dict:
+    route, jobs = list_jobs()
+    if jobs is None:
+        return {'reachable': False, 'route': None, 'owner': 'unknown', 'others': [], 'jobs': [], 'slots_used': 0}
+    owners = [(j['path'], FOREGROUND_UIS[j['path']]) for j in jobs if j['path'] in FOREGROUND_UIS]
+    others = [(p, o) for p, o in owners if o != 'minna']
+    owner = others[0][1] if others else ('minna' if owners else None)
+    return {
+        'reachable': True,
+        'route': route,
+        'owner': owner,
+        'others': others,
+        'jobs': jobs,
+        'slots_used': len(jobs),
+    }
+
+
+def wait_until_gone(path: str, timeout: float | None = None) -> bool:
+    """Confirm (by re-listing jobs) that no job with this exact path is left; unverifiable counts as not gone."""
+    deadline = time.monotonic() + (STOP_WAIT_SEC if timeout is None else timeout)
+    while True:
+        _, jobs = list_jobs()
+        if jobs is not None and not any(j['path'] == path for j in jobs):
+            return True
+        if time.monotonic() >= deadline:
+            return False
+        time.sleep(STOP_POLL_SEC)
 
 
 def stop_app() -> dict:
-    stopped = []
+    """Stop only this project's UI job (exact path match) and confirm resources are released."""
+    route, jobs = list_jobs()
+    if jobs is None:
+        return {'ok': False, 'state': 'device_unreachable', 'recoverable': True, 'stopped_ui_jobs': []}
+    mine = [j for j in jobs if j['path'] == OWN_MAIN]
+    if not mine:
+        return {'ok': True, 'state': 'not_running', 'stopped_ui_jobs': []}
     try:
-        listed = control('jobs')
-        if listed.get('ok'):
-            for line in (listed.get('result') or '').splitlines():
-                if line.endswith('path=/nand/apps/minna_nihongo/scripts/main.lua'):
-                    job = line.split(' | ', 1)[0]
-                    control('stop', id=job)
-                    stopped.append(job)
-            return {'ok': True, 'stopped_ui_jobs': stopped}
-    except urllib.error.HTTPError as error:
-        if error.code != 404:
-            raise
-    if BADGE_BRIDGE_CFG.exists():
+        for job in mine:
+            if route == 'minna':
+                control('stop')  # cooperative exit through our own lifecycle queue
+            else:
+                mini_control('stop', id=job['id'])
+    except LUA_NETWORK_ERRORS:
+        return {'ok': False, 'state': 'stop_request_failed', 'recoverable': True, 'stopped_ui_jobs': []}
+    released = wait_until_gone(OWN_MAIN)
+    return {
+        'ok': released,
+        'state': 'stopped' if released else 'stop_not_confirmed',
+        'recoverable': not released,
+        'stopped_ui_jobs': [j['id'] for j in mine] if released else [],
+    }
+
+
+def release_other_foreground(fg: dict) -> dict:
+    """EXPLICIT user switch only: stop other apps' foreground UI (main.lua, exact path). Receivers/indicators are kept."""
+    released = []
+    for path, _owner in fg.get('others', []):
+        job = next((j for j in fg['jobs'] if j['path'] == path), None)
+        if job is None:
+            continue
         try:
-            bcfg = json.loads(BADGE_BRIDGE_CFG.read_text(encoding='utf-8'))
-            token = bcfg.get('token')
-            if token:
-                listed = json.loads(
-                    request('/api/lua/ai_mac_mini/control', {'token': token, 'action': 'jobs'}, 'POST')
-                )
-                for line in (listed.get('result') or '').splitlines():
-                    if line.endswith('path=/nand/apps/minna_nihongo/scripts/main.lua'):
-                        job = line.split(' | ', 1)[0]
-                        request('/api/lua/ai_mac_mini/control', {'token': token, 'action': 'stop', 'id': job}, 'POST')
-                        stopped.append(job)
-        except Exception:
-            pass
-    return {'ok': True, 'stopped_ui_jobs': stopped}
+            mini_control('stop', id=job['id'])
+        except LUA_NETWORK_ERRORS:
+            return {'ok': False, 'state': 'mini_route_unavailable', 'recoverable': True, 'released': released}
+        if not wait_until_gone(path):
+            return {'ok': False, 'state': 'release_not_confirmed', 'recoverable': True, 'released': released}
+        released.append(path)
+    return {'ok': True, 'released': released}
 
 
-def ensure_start() -> dict:
-    pause_badge_ui()
-    listed = control('jobs')
-    if listed.get('ok') and any(
-        line.endswith('path=/nand/apps/minna_nihongo/scripts/main.lua')
-        for line in (listed.get('result') or '').splitlines()
-    ):
+def switch_to_badge() -> dict:
+    """EXPLICIT user switch: stop our UI (verified), then hand the screen to Mini if its route exists."""
+    stopped = stop_app()
+    if not stopped.get('ok'):
+        return {'ok': False, 'state': stopped.get('state'), 'recoverable': True, 'stop': stopped}
+    try:
+        mini = mini_control('start')
+    except LUA_NETWORK_ERRORS as exc:
+        return {
+            'ok': False,
+            'state': 'mini_route_unavailable',
+            'recoverable': True,
+            'minna_ui_stopped': True,
+            'detail': str(exc),
+            'hint': 'Japanese UI stopped; open the AI Mac mini icon on the device desktop, nothing else was changed.',
+        }
+    _, jobs = list_jobs()
+    running = jobs is not None and any(j['path'] == MINI_MAIN for j in jobs)
+    return {
+        'ok': bool(mini.get('ok')) and running,
+        'state': 'mini_started' if running else 'mini_start_not_confirmed',
+        'recoverable': not running,
+        'minna_ui_stopped': True,
+        'badge_start': mini,
+    }
+
+
+def pending_deploy() -> dict:
+    """Read-only: which local package scripts differ from the device. Never uploads, stops or starts anything."""
+    try:
+        diff = []
+        for name in DEPLOY_FILES:
+            local = ROOT / 'app' / 'scripts' / name
+            if not local.exists():
+                continue
+            try:
+                same = request('/files' + REMOTE + '/scripts/' + name, timeout=6.0) == local.read_bytes()
+            except urllib.error.HTTPError as err:
+                if err.code != 404:
+                    raise
+                same = False
+            if not same:
+                diff.append(name)
+        return {'ok': True, 'pending': diff}
+    except LUA_NETWORK_ERRORS as exc:
+        return {'ok': False, 'pending': [], 'error': str(exc)}
+
+
+def deploy_scripts() -> dict:
+    """EXPLICIT deploy: upload differing scripts. Refuses to overwrite scripts while our UI is running."""
+    state = pending_deploy()
+    if not state['ok'] or not state['pending']:
+        return {**state, 'uploaded': []}
+    _, jobs = list_jobs()
+    if jobs is None:
+        return {'ok': False, 'state': 'device_unreachable', 'recoverable': True, 'pending': state['pending'], 'uploaded': []}
+    if any(j['path'] == OWN_MAIN for j in jobs):
+        return {'ok': False, 'state': 'ui_running', 'recoverable': True, 'pending': state['pending'], 'uploaded': []}
+    uploaded = []
+    for name in state['pending']:
+        body = (ROOT / 'app' / 'scripts' / name).read_bytes()
+        out = json.loads(
+            request(
+                '/api/files/upload?' + urllib.parse.urlencode({'path': REMOTE + '/scripts/' + name}),
+                body,
+                'POST',
+                'application/octet-stream',
+                timeout=25.0,
+            )
+        )
+        if not out.get('ok'):
+            return {'ok': False, 'state': 'upload_failed', 'file': name, 'pending': state['pending'], 'uploaded': uploaded}
+        uploaded.append(name)
+    return {'ok': True, 'pending': [], 'uploaded': uploaded}
+
+
+def ensure_start(explicit: bool = False) -> dict:
+    """Start the Japanese UI. Activation is an explicit user switch; background callers get a refusal."""
+    if not explicit:
+        return {'ok': False, 'state': 'explicit_required', 'recoverable': True}
+    fg = foreground_state()
+    if not fg['reachable']:
+        return {'ok': False, 'state': 'device_unreachable', 'recoverable': True}
+    if fg['owner'] == 'minna':
         return {'ok': True, 'already_running': True}
-    return control('start')
+    if fg['others']:
+        released = release_other_foreground(fg)
+        if not released.get('ok'):
+            return released
+        fg = foreground_state()
+        if not fg['reachable']:
+            return {'ok': False, 'state': 'device_unreachable', 'recoverable': True}
+    if fg['route'] != 'minna':
+        if fg['slots_used'] >= MAX_LUA_SLOTS:
+            return {'ok': False, 'state': 'no_free_slot', 'recoverable': True}
+        bootstrap()
+    out = control('start')
+    _, jobs = list_jobs()
+    running = jobs is not None and any(j['path'] == OWN_MAIN for j in jobs)
+    return {**out, 'ok': bool(out.get('ok')) and running, 'state': 'started' if running else 'start_not_confirmed'}
 
 
 def upload_clip(mp3_bytes: bytes) -> bool:
@@ -197,11 +334,9 @@ def upload() -> None:
         copy(REMOTE, existing)
         print('Backed up existing package:', backup)
 
-    try:
-        stop_app()
-        time.sleep(0.4)
-    except Exception:
-        pass
+    stopped = stop_app()
+    if not stopped.get('ok'):
+        raise RuntimeError(f'Deploy aborted, own UI stop not confirmed: {stopped}')
 
     for directory in [REMOTE, REMOTE + '/scripts', REMOTE + '/assets', REMOTE + '/lessons']:
         assert json.loads(request('/api/files/mkdir', {'path': directory, 'recursive': True}, 'POST')).get('ok')
@@ -304,9 +439,8 @@ class WebIM:
 
 
 def bootstrap() -> None:
+    """Start ONLY minna_nihongo_receiver. Never stops, pauses or replaces any other app's task."""
     host = resolve_host()
-    paused = pause_badge_ui()
-    print('Pre-bootstrap pause_badge_ui:', json.dumps(paused, ensure_ascii=False))
 
     def receiver_id():
         result = control('job', id='minna_nihongo_receiver')
@@ -329,10 +463,10 @@ def bootstrap() -> None:
     ws = WebIM(host)
     chat = 'esp-minna-nihongo-install'
     prompt = (
-        '安装独立应用 大家的日语（minna_nihongo），保留 ai_mac_mini、ai_badge 与 pomodoro_clock 的所有文件。'
-        '若4个Lua异步任务槽位已满，请先用 lua_stop_async_job 停止 ai_mac_mini_ui 或 ai_mac_mini_indicators 任务（保留 ai_mac_mini_receiver）。'
-        '然后使用 lua_run_script_async 启动 /nand/apps/minna_nihongo/scripts/receiver.lua，'
-        'name 与 exclusive 都是 minna_nihongo_receiver，replace=true，timeout_ms=0，log_bytes=4096。'
+        '安装独立应用 大家的日语（minna_nihongo），保留 ai_mac_mini、ai_badge 与 pomodoro_clock 的所有文件与正在运行的任务。'
+        '严禁停止或替换任何其他应用的任务；若4个Lua异步任务槽位已满，不要做任何改动，直接回复“槽位已满”。'
+        '有空闲槽位时，使用 lua_run_script_async 启动 /nand/apps/minna_nihongo/scripts/receiver.lua，'
+        'name 与 exclusive 都是 minna_nihongo_receiver，replace=false，timeout_ms=0，log_bytes=4096。'
         '无需编写或修改脚本，文件已经上传且校验。启动后用 lua_get_async_job 核实 running 并回复结果。'
     )
     print(request('/api/webim/send', {'chat_id': chat, 'text': prompt}, 'POST').decode('utf-8', errors='ignore'))
@@ -378,6 +512,8 @@ if __name__ == '__main__':
             'job',
             'jobs',
             'switch-to-badge',
+            'deploy',
+            'pending-deploy',
         ],
     )
     p.add_argument('--id')
@@ -392,9 +528,19 @@ if __name__ == '__main__':
     elif args.action == 'discover':
         print(json.dumps({'ok': True, 'device_host': resolve_host(force=True)}, ensure_ascii=False))
     elif args.action == 'ensure-start':
-        print(json.dumps(ensure_start(), ensure_ascii=False))
+        result = ensure_start(explicit=True)
+        print(json.dumps(result, ensure_ascii=False))
+        raise SystemExit(0 if result.get('ok') else 1)
+    elif args.action == 'deploy':
+        result = deploy_scripts()
+        print(json.dumps(result, ensure_ascii=False))
+        raise SystemExit(0 if result.get('ok') else 1)
+    elif args.action == 'pending-deploy':
+        print(json.dumps(pending_deploy(), ensure_ascii=False))
     elif args.action == 'switch-to-badge':
-        print(json.dumps(switch_to_badge(), ensure_ascii=False))
+        result = switch_to_badge()
+        print(json.dumps(result, ensure_ascii=False))
+        raise SystemExit(0 if result.get('ok') else 1)
     elif args.action == 'stop' and not args.id:
         print(json.dumps(stop_app(), ensure_ascii=False))
     else:

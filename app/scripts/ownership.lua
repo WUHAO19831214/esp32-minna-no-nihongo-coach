@@ -31,17 +31,14 @@ local function stop(thread,path,timeout)
 end
 
 function M.activate(thread)
+  -- Signal polite exit to any foreground UI and stop competing UI tasks (main.lua only).
+  -- Receivers and indicators are NEVER stopped here.
   pcall(thread.sync.queue_send,"ai_mac_mini_lifecycle","exit",0)
-  pcall(thread.sync.queue_send,"ai_badge_lifecycle","exit",0)
   stop(thread,mini.."main.lua",1500)
-  stop(thread,mini.."indicator_worker.lua",1200)
-  stop(thread,air.."main.lua",1500)
-  stop(thread,air.."indicator_worker.lua",1200)
-  stop(thread,pomo.."main.lua",1200)
 end
 
 function M.deactivate(thread,storage)
-  -- Do not auto-spawn background indicator workers on exit so the 4-job pool always keeps a free slot for desktop launcher taps.
+  -- On deactivation, do not spawn background tasks; leave slots clean.
   return true
 end
 

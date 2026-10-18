@@ -187,6 +187,9 @@ local function handle_action_side_effects(act,now)
 end
 
 local function run()
+  if not (args and args.lifecycle_prepared) then
+    while thread.sync.queue_recv("minna_nihongo_lifecycle",0) do end
+  end
   dofile(root.."/scripts/ownership.lua").activate(thread)
   local found,status=thread.get("minna_nihongo_receiver")
   if not found or not status:find("status=running",1,true) then
@@ -408,6 +411,7 @@ local function run()
         frames=frames,
         mean_draw_ms=total_ms/math.max(1,frames),
         max_draw_ms=max_ms,
+        uptime_ms=now,
         version="1.4.0"
       })
       local ok=thread.sync.queue_send("minna_nihongo_health",hraw,0)

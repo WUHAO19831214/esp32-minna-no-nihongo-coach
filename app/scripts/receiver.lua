@@ -20,8 +20,6 @@ end
 local qok,qerr=thread.sync.queue_create("minna_nihongo_events",{depth=8,item_size=512})
 assert(qok or qerr=="exists",qerr)
 
-dofile(root.."/scripts/ownership.lua").activate(thread)
-
 local latest,health,pending_event
 
 local function authorize(req)
@@ -63,7 +61,9 @@ app:get("/status",function()
     if not raw then break end
     health=json.decode(raw)
   end
-  return {json={ok=true,uptime_ms=system.millis(),ui=health,data=latest}}
+  local jobs=dofile(root.."/scripts/ownership.lua").jobs(thread,root.."/scripts/main.lua")
+  local running=jobs~=nil and #jobs>0
+  return {json={ok=true,uptime_ms=system.millis(),ui_running=running,receiver_only=not running,ui=running and health or nil,data=latest}}
 end)
 
 app:post("/events",function(req)
@@ -93,8 +93,12 @@ app:post("/control",function(req)
     return {json={ok=ok,result=out,error=err}}
   elseif d.action=="start" or d.action=="verify" then
     pcall(function() dofile(root.."/scripts/ownership.lua").activate(thread) end)
+    while thread.sync.queue_recv("minna_nihongo_lifecycle",0) do end
+    while thread.sync.queue_recv("minna_nihongo_health",0) do end
+    health=nil
+    local launch_args=d.args or {};launch_args.lifecycle_prepared=true
     local path=root.."/scripts/"..(d.action=="verify" and "verify.lua" or "main.lua")
-    local ok,out=thread.start(path,d.args or {},{
+    local ok,out=thread.start(path,launch_args,{
       name=d.action=="verify" and "minna_nihongo_verify" or "minna_nihongo_ui",
       exclusive="minna_nihongo_ui",
       replace=true,

@@ -24,7 +24,18 @@ from audio_engine import (
     synthesize_japanese_mp3,
 )
 from dataset import build_device_snapshot, record_quiz_submission
-from device import bootstrap, control, ensure_start, pause_badge_ui, request, stop_app, switch_to_badge, upload_clip
+from device import (
+    MAX_LUA_SLOTS,
+    bootstrap,
+    control,
+    deploy_scripts,
+    ensure_start,
+    foreground_state,
+    pending_deploy,
+    request,
+    switch_to_badge,
+    upload_clip,
+)
 from discovery import _resolver
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,7 +71,10 @@ class BridgeState:
         )
         self.last_push_ok: bool = False
         self.last_push_ts: float = 0.0
-        self.scripts_synced: bool = False
+        self.deploy_checked: bool = False
+        self.pending_deploy: list[str] = []
+        self.receiver_state: str = 'ok'
+        self.next_recover_ts: float = 0.0
         self.last_event: dict[str, Any] | None = None
 
     def refresh_bt_status(self, force: bool = False) -> dict[str, Any]:
@@ -106,58 +120,59 @@ class BridgeState:
 STATE = BridgeState()
 
 
-def _sync_lua_scripts_once() -> None:
-    if STATE.scripts_synced:
+RECOVER_BACKOFF_SEC = 30.0
+
+
+def _check_pending_deploy_once() -> None:
+    """Read-only check. Background code never uploads, stops or starts anything; deploy is explicit."""
+    if STATE.deploy_checked:
         return
+    result = pending_deploy()
+    if result.get('ok'):
+        STATE.pending_deploy = list(result.get('pending') or [])
+        STATE.deploy_checked = True
+        if STATE.pending_deploy:
+            print(f'[Bridge] Scripts differ from device (deploy is explicit): {STATE.pending_deploy}', flush=True)
+
+
+def recover_receiver() -> bool:
+    """Bring back ONLY our receiver after a device reboot, and only when it cannot disturb another app.
+
+    The screen owner is never changed here: if Mini/Air/another UI is in the foreground, or the job list is
+    unreadable, or all 4 Lua slots are taken, we just record a waiting state and retry later.
+    """
+    now = time.monotonic()
+    if now < STATE.next_recover_ts:
+        return False
+    STATE.next_recover_ts = now + RECOVER_BACKOFF_SEC
+    fg = foreground_state()
+    if not fg['reachable']:
+        STATE.receiver_state = 'waiting_state_unknown'
+        return False
+    if fg['others']:
+        STATE.receiver_state = 'waiting_other_app_active'
+        return False
+    if fg['slots_used'] >= MAX_LUA_SLOTS:
+        STATE.receiver_state = 'waiting_free_slot'
+        return False
+    print('[Bridge Recover] Receiver missing, no other app active and a slot is free: starting receiver only.', flush=True)
     try:
-        pause_badge_ui()
-    except Exception:
-        pass
-    updated_any = False
-    for fname in ('ownership.lua', 'receiver.lua', 'model.lua', 'render.lua', 'main.lua'):
-        local_path = ROOT / 'app' / 'scripts' / fname
-        if not local_path.exists():
-            continue
-        body = local_path.read_bytes()
-        remote_path = f'/apps/minna_nihongo/scripts/{fname}'
-        try:
-            if request('/files' + remote_path, timeout=4.0) == body:
-                continue
-        except Exception:
-            pass
-        if not updated_any:
-            try:
-                stop_app()
-                time.sleep(0.35)
-            except Exception:
-                pass
-        up = json.loads(
-            request(
-                '/api/files/upload?' + urllib.parse.urlencode({'path': remote_path}),
-                body,
-                'POST',
-                'application/octet-stream',
-                timeout=12.0,
-            )
-        )
-        if up.get('ok'):
-            updated_any = True
-    try:
+        bootstrap()
         control('publish')
-        ensure_start()
-        if updated_any:
-            print('[Bridge Auto-Sync] Updated Lua scripts on ESP32 and restarted UI (v1.4.0)', flush=True)
-    except Exception:
-        pass
-    STATE.scripts_synced = True
+    except Exception as exc:
+        STATE.receiver_state = 'recover_failed'
+        print(f'[Bridge Recover] failed: {exc}', flush=True)
+        return False
+    STATE.receiver_state = 'ok'
+    return True
 
 
 def push_state(audio_cmd: dict[str, Any] | None = None, rebuild: bool = False) -> bool:
     try:
         if not STATE.bt_scanning:
             STATE.refresh_bt_status(force=False)
-        if not STATE.scripts_synced:
-            _sync_lua_scripts_once()
+        if not STATE.deploy_checked:
+            _check_pending_deploy_once()
         if rebuild:
             payload = STATE.rebuild_snapshot(audio_cmd=audio_cmd)
             raw_snap = json.dumps(payload, ensure_ascii=False).encode('utf-8')
@@ -204,14 +219,13 @@ def push_state(audio_cmd: dict[str, Any] | None = None, rebuild: bool = False) -
         try:
             res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
         except urllib.error.HTTPError as http_err:
-            if http_err.code == 404:
-                print('[Bridge Auto-Bootstrap] ESP32 rebooted; bootstrapping receiver & publishing desktop icon...', flush=True)
-                bootstrap()
-                control('publish')
-                ensure_start()
-                res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
-            else:
-                raise
+            if http_err.code != 404 or not recover_receiver():
+                STATE.last_push_ok = False
+                if http_err.code != 404:
+                    raise
+                return False
+            res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
+        STATE.receiver_state = 'ok'
         ok = bool(res.get('ok'))
         STATE.last_push_ok = ok
         STATE.last_push_ts = time.time()
@@ -797,6 +811,8 @@ class WebHandler(BaseHTTPRequestHandler):
                     'audio_target': STATE.audio_target,
                     'bt_name': STATE.bt_name,
                     'bt_connected': STATE.bt_connected,
+                    'receiver_state': STATE.receiver_state,
+                    'pending_deploy': STATE.pending_deploy,
                     'summary': snap.get('summary'),
                     'tracks': get_lesson_tracks(f'{STATE.lesson:03d}'),
                 }
@@ -867,14 +883,23 @@ class WebHandler(BaseHTTPRequestHandler):
             return
 
         if self.path == '/api/esp/activate':
-            out = ensure_start()
-            push_state(rebuild=True)
-            self._send_json({'ok': True, 'result': out})
+            # Explicit user switch of the screen to the Japanese app.
+            out = ensure_start(explicit=True)
+            if out.get('ok'):
+                push_state(rebuild=True)
+            self._send_json({'ok': bool(out.get('ok')), 'result': out})
             return
 
         if self.path == '/api/esp/badge':
+            # Explicit user switch back to AI Mac mini. Reports recoverable states honestly.
             out = switch_to_badge()
-            self._send_json({'ok': True, 'result': out})
+            self._send_json({'ok': bool(out.get('ok')), 'result': out})
+            return
+
+        if self.path == '/api/esp/deploy':
+            # Explicit deploy of changed scripts; never starts or activates the UI.
+            out = deploy_scripts()
+            self._send_json({'ok': bool(out.get('ok')), 'result': out})
             return
 
         self.send_error(404)
