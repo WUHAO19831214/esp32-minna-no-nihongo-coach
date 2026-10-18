@@ -24,7 +24,7 @@ from audio_engine import (
     synthesize_japanese_mp3,
 )
 from dataset import build_device_snapshot, record_quiz_submission
-from device import ensure_start, request, stop_app, switch_to_badge, upload_clip
+from device import bootstrap, control, ensure_start, pause_badge_ui, request, stop_app, switch_to_badge, upload_clip
 from discovery import _resolver
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -109,8 +109,12 @@ STATE = BridgeState()
 def _sync_lua_scripts_once() -> None:
     if STATE.scripts_synced:
         return
+    try:
+        pause_badge_ui()
+    except Exception:
+        pass
     updated_any = False
-    for fname in ('main.lua', 'model.lua', 'render.lua'):
+    for fname in ('ownership.lua', 'receiver.lua', 'model.lua', 'render.lua', 'main.lua'):
         local_path = ROOT / 'app' / 'scripts' / fname
         if not local_path.exists():
             continue
@@ -138,12 +142,13 @@ def _sync_lua_scripts_once() -> None:
         )
         if up.get('ok'):
             updated_any = True
-    if updated_any:
-        try:
-            ensure_start()
+    try:
+        control('publish')
+        ensure_start()
+        if updated_any:
             print('[Bridge Auto-Sync] Updated Lua scripts on ESP32 and restarted UI (v1.4.0)', flush=True)
-        except Exception:
-            pass
+    except Exception:
+        pass
     STATE.scripts_synced = True
 
 
@@ -196,7 +201,17 @@ def push_state(audio_cmd: dict[str, Any] | None = None, rebuild: bool = False) -
                 feed_data['audio_cmd'] = audio_cmd
 
         body = {'token': STATE.token, 'data': feed_data}
-        res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
+        try:
+            res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
+        except urllib.error.HTTPError as http_err:
+            if http_err.code == 404:
+                print('[Bridge Auto-Bootstrap] ESP32 rebooted; bootstrapping receiver & publishing desktop icon...', flush=True)
+                bootstrap()
+                control('publish')
+                ensure_start()
+                res = json.loads(request('/api/lua/minna_nihongo/feed', body, 'POST', timeout=6.0))
+            else:
+                raise
         ok = bool(res.get('ok'))
         STATE.last_push_ok = ok
         STATE.last_push_ts = time.time()

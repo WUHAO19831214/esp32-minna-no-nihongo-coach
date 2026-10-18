@@ -92,6 +92,7 @@ app:post("/control",function(req)
     local ok,out,err=capability.call("publish_app",{app_id="minna_nihongo"},{max_output_bytes=2048})
     return {json={ok=ok,result=out,error=err}}
   elseif d.action=="start" or d.action=="verify" then
+    pcall(function() dofile(root.."/scripts/ownership.lua").activate(thread) end)
     local path=root.."/scripts/"..(d.action=="verify" and "verify.lua" or "main.lua")
     local ok,out=thread.start(path,d.args or {},{
       name=d.action=="verify" and "minna_nihongo_verify" or "minna_nihongo_ui",
