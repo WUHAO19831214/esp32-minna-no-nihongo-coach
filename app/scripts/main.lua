@@ -23,6 +23,7 @@ s.volume=prefs.volume or 80
 s.leds_muted=prefs.leds_muted==true
 if prefs.haptic_enabled~=nil then s.haptic_enabled=prefs.haptic_enabled==true end
 s.slow_tts=prefs.slow_tts==true
+if prefs.single_loop~=nil then s.single_loop=(prefs.single_loop~=false) else s.single_loop=true end
 if prefs.audio_target=="bt" or prefs.audio_target=="esp32" then
   s.audio_target=prefs.audio_target
 end
@@ -43,6 +44,7 @@ local function save_prefs()
     leds_muted=s.leds_muted,
     haptic_enabled=s.haptic_enabled,
     slow_tts=s.slow_tts,
+    single_loop=(s.single_loop~=false),
     audio_target=s.audio_target
   }
   assert(storage.write_file(root.."/preferences.json.tmp",json.encode(p)))
@@ -273,9 +275,30 @@ local function run()
               start_sec=math.floor(s.play_base_sec),
               end_sec=dur,
               ab_state="off",
+              single_loop=(s.single_loop~=false),
               volume=s.volume,
               audio_target=s.audio_target
             },now)
+          elseif s.single_loop~=false then
+            s.play_base_sec=0
+            s.play_started_ms=now
+            if (tonumber(s.play_clip_end) or dur)>=dur and dur<=36 then
+              play_clip_file()
+            else
+              s.waiting_next_chunk=true
+              local tr=model.current_track(s)
+              emit_event({
+                type="audio_play",
+                lesson=s.lesson,
+                track_index=tr.index,
+                start_sec=0,
+                end_sec=dur,
+                ab_state="off",
+                single_loop=true,
+                volume=s.volume,
+                audio_target=s.audio_target
+              },now)
+            end
           else
             s.playing=false
             s.play_base_sec=0
@@ -287,8 +310,28 @@ local function run()
       local pos,dur=model.current_play_sec(s,now)
       local clip_end=tonumber(s.play_clip_end) or dur
       if pos>=math.min(dur,clip_end) then
-        s.playing=false
-        s.play_base_sec=0
+        if s.single_loop~=false then
+          local was_partial=(s.play_base_sec>1)
+          s.play_base_sec=0
+          s.play_started_ms=now
+          if was_partial then
+            local tr=model.current_track(s)
+            emit_event({
+              type="audio_play",
+              lesson=s.lesson,
+              track_index=tr.index,
+              start_sec=0,
+              end_sec=dur,
+              ab_state="off",
+              single_loop=true,
+              volume=s.volume,
+              audio_target=s.audio_target
+            },now)
+          end
+        else
+          s.playing=false
+          s.play_base_sec=0
+        end
       end
     end
 
@@ -327,7 +370,7 @@ local function run()
     local key=table.concat({
       s.page,s.lesson,s.data_seq or 0,s.flash_cat,s.card_index,s.card_flipped and 1 or 0,
       s.quiz_mode,s.quiz_index,s.quiz_selected,
-      s.track_slot,s.playing and 1 or 0,pos_sec,s.ab_state,s.ab_a,s.ab_b,s.ab_loops,
+      s.track_slot,s.playing and 1 or 0,pos_sec,s.ab_state,s.ab_a,s.ab_b,s.ab_loops,(s.single_loop~=false) and 1 or 0,
       s.volume,s.brightness,s.leds_muted and 1 or 0,s.haptic_enabled and 1 or 0,s.slow_tts and 1 or 0,
       s.audio_target or "esp32",s.bt_connected and 1 or 0,s.bt_name or "",
       s.bt_modal and 1 or 0,s.bt_scanning and 1 or 0,s.bt_page or 1,#(s.bt_devices or {}),
@@ -354,6 +397,7 @@ local function run()
         ab_a=s.ab_a,
         ab_b=s.ab_b,
         ab_loops=s.ab_loops,
+        single_loop=(s.single_loop~=false),
         volume=s.volume,
         brightness=s.brightness,
         audio_target=s.audio_target,
@@ -364,7 +408,7 @@ local function run()
         frames=frames,
         mean_draw_ms=total_ms/math.max(1,frames),
         max_draw_ms=max_ms,
-        version="1.3.0"
+        version="1.4.0"
       })
       local ok=thread.sync.queue_send("minna_nihongo_health",hraw,0)
       if not ok then

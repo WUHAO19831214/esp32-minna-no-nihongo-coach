@@ -1,6 +1,7 @@
 import Foundation
 import IOBluetooth
 import CoreAudio
+import AudioToolbox
 
 class InquiryDelegate: NSObject, IOBluetoothDeviceInquiryDelegate {
     var foundDevices: [IOBluetoothDevice] = []
@@ -264,6 +265,29 @@ func setDefaultAudioOutput(matchingName targetName: String, matchingAddress targ
                     UInt32(MemoryLayout<AudioDeviceID>.size),
                     &mutableID
                 )
+                // Also ensure hardware/virtual main volume on this output device is 100% (1.0) and unmuted
+                var volAddr = AudioObjectPropertyAddress(
+                    mSelector: kAudioHardwareServiceDeviceProperty_VirtualMainVolume,
+                    mScope: kAudioDevicePropertyScopeOutput,
+                    mElement: kAudioObjectPropertyElementMain
+                )
+                var fullVol: Float32 = 1.0
+                AudioObjectSetPropertyData(id, &volAddr, 0, nil, UInt32(MemoryLayout<Float32>.size), &fullVol)
+                for ch: UInt32 in [0, 1, 2] {
+                    var chVolAddr = AudioObjectPropertyAddress(
+                        mSelector: kAudioDevicePropertyVolumeScalar,
+                        mScope: kAudioDevicePropertyScopeOutput,
+                        mElement: ch
+                    )
+                    AudioObjectSetPropertyData(id, &chVolAddr, 0, nil, UInt32(MemoryLayout<Float32>.size), &fullVol)
+                    var muteAddr = AudioObjectPropertyAddress(
+                        mSelector: kAudioDevicePropertyMute,
+                        mScope: kAudioDevicePropertyScopeOutput,
+                        mElement: ch
+                    )
+                    var unmuted: UInt32 = 0
+                    AudioObjectSetPropertyData(id, &muteAddr, 0, nil, UInt32(MemoryLayout<UInt32>.size), &unmuted)
+                }
                 return status == noErr
             }
         }

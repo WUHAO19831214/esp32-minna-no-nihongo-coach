@@ -91,6 +91,7 @@ function M.new()
     ab_a=0,
     ab_b=0,
     ab_loops=0,
+    single_loop=true,
     clip_seq=0,
     active_clip_seq=0,
     volume=80,
@@ -300,6 +301,7 @@ function M.feed(s,d,now)
         if type(cmd.ab_state)=="string" then s.ab_state=cmd.ab_state end
         if cmd.ab_a then s.ab_a=math.floor(tonumber(cmd.ab_a) or 0) end
         if cmd.ab_b then s.ab_b=math.floor(tonumber(cmd.ab_b) or 0) end
+        if type(cmd.single_loop)=="boolean" then s.single_loop=cmd.single_loop end
       elseif cmd.action=="stop" then
         s.playing=false
       end
@@ -322,6 +324,7 @@ local function make_audio_event(s,now)
     start_sec=math.floor(start_s),
     end_sec=math.floor(end_s),
     ab_state=s.ab_state,
+    single_loop=s.single_loop~=false,
     volume=s.volume,
     audio_target=s.audio_target
   }
@@ -486,6 +489,16 @@ function M.handle_tap(s,x,y,now)
       s.play_base_sec=0;s.play_started_ms=now;s.ab_state="off";s.ab_a=0;s.ab_b=0;s.ab_loops=0
       if s.playing then return "track",make_audio_event(s,now) end
       return "track"
+    elseif y>=100 and y<=170 and x>=276 and x<=460 then
+      s.single_loop=not (s.single_loop~=false)
+      s.data_seq=(s.data_seq or 0)+1
+      return "prefs",{
+        type="toggle_single_loop",
+        single_loop=s.single_loop,
+        playing=s.playing,
+        volume=s.volume,
+        audio_target=s.audio_target
+      }
     elseif y>=172 and y<=226 and x>=30 and x<=450 then
       local ratio=clamp((x-36)/408.0,0.0,1.0)
       s.play_base_sec=math.floor(ratio*dur)

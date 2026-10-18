@@ -54,15 +54,35 @@ def get_track_by_index(track_index: int) -> dict[str, Any] | None:
     return None
 
 
-def _volume_gain(volume_pct: int | float | None, base_gain: float = 1.45) -> float:
+def _volume_gain(volume_pct: int | float | None, base_gain: float = 2.2) -> float:
     if volume_pct is None:
         v = 80.0
     else:
         v = max(0.0, min(100.0, float(volume_pct)))
     if v <= 0.5:
         return 0.0
-    # Non-linear perceptual loudness curve: 80% -> base_gain (~1.45), 100% -> 2.30, 30% -> 0.35
+    # Strong perceptual loudness curve: 80% -> base_gain (~2.2), 100% -> ~3.45, 30% -> ~0.55
     return round(base_gain * ((v / 80.0) ** 1.35), 2)
+
+
+def _vocal_boost_filter(gain: float) -> str:
+    """Dynamic range vocal normalizer + gain stage + brickwall limiter so Japanese speech is loud and crisp without clipping."""
+    if gain <= 0.01:
+        return "volume=0.0"
+    return f"dynaudnorm=f=120:g=5:p=0.95:m=8.0,volume={gain:.2f},alimiter=limit=0.98:attack=5:release=50"
+
+
+def ensure_macos_output_volume_max() -> None:
+    """Ensure macOS master output volume is at 100% and unmuted so Bluetooth speaker/headphone volume isn't throttled by macOS."""
+    try:
+        subprocess.run(
+            ["/usr/bin/osascript", "-e", "set volume output volume 100 without output muted"],
+            capture_output=True,
+            timeout=1.5,
+            check=False,
+        )
+    except Exception:
+        pass
 
 
 def slice_track_mp3(
@@ -72,7 +92,7 @@ def slice_track_mp3(
     max_window_sec: float = 45.0,
     volume_pct: int = 80,
 ) -> tuple[bytes, float, float]:
-    """Slice [start_sec, end_sec] from the local Ximalaya MP3 into a compact mono MP3 for ESP32 speaker."""
+    """Slice [start_sec, end_sec] from the local Ximalaya MP3 into a loud, normalized MP3."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     track = get_track_by_index(track_index)
     if not track:
@@ -89,8 +109,8 @@ def slice_track_mp3(
         e = min(duration, s + max_window_sec)
 
     clip_len = max(0.8, e - s)
-    gain = _volume_gain(volume_pct, base_gain=1.40)
-    key = f"trk_{track_index}_{s:.1f}_{e:.1f}_v{int(volume_pct)}_32k"
+    gain = _volume_gain(volume_pct, base_gain=2.20)
+    key = f"trk_v2_{track_index}_{s:.1f}_{e:.1f}_v{int(volume_pct)}_32k"
     out_path = CACHE_DIR / f"{hashlib.md5(key.encode()).hexdigest()[:16]}.mp3"
     if not out_path.exists() or out_path.stat().st_size < 256:
         cmd = [
@@ -110,7 +130,7 @@ def slice_track_mp3(
             "-b:a",
             "32k",
             "-af",
-            f"volume={gain:.2f}",
+            _vocal_boost_filter(gain),
             str(out_path),
         ]
         subprocess.run(cmd, check=True, capture_output=True)
@@ -118,15 +138,15 @@ def slice_track_mp3(
 
 
 def synthesize_japanese_mp3(text: str, volume_pct: int = 80, slow: bool = False) -> bytes:
-    """Synthesize Japanese word/sentence via macOS Kyoko voice into a compact MP3 for ESP32 speaker."""
+    """Synthesize Japanese word/sentence via macOS Kyoko voice into a loud, clear MP3."""
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     clean = str(text or "").strip()
     if not clean:
         clean = "こんにちは"
     clean = clean.replace("（　）", "、").replace("()", "、")
     rate = "130" if slow else "168"
-    gain = _volume_gain(volume_pct, base_gain=1.55)
-    key = f"{clean}_r{rate}_v{int(volume_pct)}"
+    gain = _volume_gain(volume_pct, base_gain=2.50)
+    key = f"tts_v2_{clean}_r{rate}_v{int(volume_pct)}"
     digest = hashlib.md5(key.encode("utf-8")).hexdigest()[:16]
     mp3_path = CACHE_DIR / f"tts_{digest}.mp3"
     if mp3_path.exists() and mp3_path.stat().st_size > 256:
@@ -152,7 +172,7 @@ def synthesize_japanese_mp3(text: str, volume_pct: int = 80, slow: bool = False)
             "-b:a",
             "32k",
             "-af",
-            f"volume={gain:.2f}",
+            _vocal_boost_filter(gain),
             str(mp3_path),
         ],
         check=True,
@@ -210,6 +230,7 @@ def connect_bt_headphones(target: str = "") -> dict[str, Any]:
         if str(target or "").strip():
             cmd.append(str(target).strip())
         out = subprocess.run(cmd, capture_output=True, text=True, timeout=14.0, check=True)
+        ensure_macos_output_volume_max()
         lines = [ln.strip() for ln in out.stdout.splitlines() if ln.strip().startswith("{")]
         return json.loads(lines[-1] if lines else "{}")
     except Exception as exc:
@@ -234,7 +255,7 @@ def disconnect_bt_headphones(target: str = "") -> dict[str, Any]:
 
 
 class HostAudioPlayer:
-    """Manages local Mac mini -> Bluetooth Audio playback (including seamless A-B segment looping)."""
+    """Manages local Mac mini -> Bluetooth Audio playback (including seamless A-B segment looping and single-track looping)."""
 
     def __init__(self) -> None:
         self._proc: subprocess.Popen | None = None
@@ -255,6 +276,7 @@ class HostAudioPlayer:
         self.stop()
         if volume_pct <= 0:
             return
+        ensure_macos_output_volume_max()
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         tmp_path = CACHE_DIR / "bt_active_clip.mp3"
         tmp_path.write_bytes(mp3_bytes)
@@ -265,7 +287,7 @@ class HostAudioPlayer:
             "-loglevel",
             "quiet",
             "-volume",
-            str(max(0, min(100, int(volume_pct)))),
+            "100",
         ]
         if loop:
             cmd.extend(["-loop", "0"])
@@ -282,6 +304,7 @@ class HostAudioPlayer:
         track_index: int,
         start_sec: float = 0.0,
         volume_pct: int = 80,
+        single_loop: bool = True,
     ) -> tuple[float, float]:
         self.stop()
         track = get_track_by_index(track_index)
@@ -292,25 +315,36 @@ class HostAudioPlayer:
         e = duration
         if volume_pct <= 0:
             return s, e
+        ensure_macos_output_volume_max()
         src = AUDIO_DIR / track["file"]
-        gain = _volume_gain(volume_pct, base_gain=1.25)
+        gain = _volume_gain(volume_pct, base_gain=2.30)
         cmd = [
             FFPLAY_BIN,
             "-nodisp",
             "-vn",
             "-loglevel",
             "quiet",
-            "-autoexit",
-            "-ss",
-            f"{s:.2f}",
-            "-af",
-            f"volume={gain:.2f}",
-            str(src),
+            "-volume",
+            "100",
         ]
+        if single_loop and s <= 1.0:
+            cmd.extend(["-loop", "0"])
+        else:
+            cmd.append("-autoexit")
+        if s > 0.2:
+            cmd.extend(["-ss", f"{s:.2f}"])
+        cmd.extend(
+            [
+                "-af",
+                _vocal_boost_filter(gain),
+                str(src),
+            ]
+        )
         self._proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return s, e
 
 
 HOST_PLAYER = HostAudioPlayer()
+
 
 

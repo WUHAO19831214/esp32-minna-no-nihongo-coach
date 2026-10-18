@@ -225,11 +225,12 @@ local function draw_repeater(sc,s,now)
   local dur_str="/ "..M.fmt_sec(dur)
   text(sc,36,132,pos_str,40,C.white)
   text(sc,182,144,dur_str,20,C.dim)
+  local sl_on=(s.single_loop~=false)
   if s.ab_state=="loop" then
-    local loop_badge=string.format("AB: %s-%s",M.fmt_sec(s.ab_a),M.fmt_sec(s.ab_b))
-    text(sc,290,144,loop_badge,16,C.orange,156)
+    local loop_badge=string.format("AB:%s-%s",M.fmt_sec(s.ab_a),M.fmt_sec(s.ab_b))
+    pill(sc,284,132,164,38,loop_badge,16,true,C.orange,C.dark)
   else
-    text(sc,290,144,"按右键一键打点AB",16,C.teal,156)
+    pill(sc,284,132,164,38,sl_on and "单曲循环: 开" or "单曲循环: 关",16,sl_on,C.teal,C.dark)
   end
 
   -- Timeline & A-B Region Bar (x=36..444, w=408)

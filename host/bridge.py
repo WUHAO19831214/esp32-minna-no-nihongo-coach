@@ -24,7 +24,7 @@ from audio_engine import (
     synthesize_japanese_mp3,
 )
 from dataset import build_device_snapshot, record_quiz_submission
-from device import ensure_start, request, switch_to_badge, upload_clip
+from device import ensure_start, request, stop_app, switch_to_badge, upload_clip
 from discovery import _resolver
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +42,7 @@ class BridgeState:
         self.quiz_mode: str = 'fill_blank'
         self.volume: int = 80
         self.slow_tts: bool = False
+        self.single_loop: bool = True
         bt_st = get_bt_status()
         self.bt_name: str = str(bt_st.get('name') or '未选择设备')
         self.bt_connected: bool = bool(bt_st.get('connected'))
@@ -59,6 +60,7 @@ class BridgeState:
         )
         self.last_push_ok: bool = False
         self.last_push_ts: float = 0.0
+        self.scripts_synced: bool = False
         self.last_event: dict[str, Any] | None = None
 
     def refresh_bt_status(self, force: bool = False) -> dict[str, Any]:
@@ -104,10 +106,53 @@ class BridgeState:
 STATE = BridgeState()
 
 
+def _sync_lua_scripts_once() -> None:
+    if STATE.scripts_synced:
+        return
+    updated_any = False
+    for fname in ('main.lua', 'model.lua', 'render.lua'):
+        local_path = ROOT / 'app' / 'scripts' / fname
+        if not local_path.exists():
+            continue
+        body = local_path.read_bytes()
+        remote_path = f'/apps/minna_nihongo/scripts/{fname}'
+        try:
+            if request('/files' + remote_path, timeout=4.0) == body:
+                continue
+        except Exception:
+            pass
+        if not updated_any:
+            try:
+                stop_app()
+                time.sleep(0.35)
+            except Exception:
+                pass
+        up = json.loads(
+            request(
+                '/api/files/upload?' + urllib.parse.urlencode({'path': remote_path}),
+                body,
+                'POST',
+                'application/octet-stream',
+                timeout=12.0,
+            )
+        )
+        if up.get('ok'):
+            updated_any = True
+    if updated_any:
+        try:
+            ensure_start()
+            print('[Bridge Auto-Sync] Updated Lua scripts on ESP32 and restarted UI (v1.4.0)', flush=True)
+        except Exception:
+            pass
+    STATE.scripts_synced = True
+
+
 def push_state(audio_cmd: dict[str, Any] | None = None, rebuild: bool = False) -> bool:
     try:
         if not STATE.bt_scanning:
             STATE.refresh_bt_status(force=False)
+        if not STATE.scripts_synced:
+            _sync_lua_scripts_once()
         if rebuild:
             payload = STATE.rebuild_snapshot(audio_cmd=audio_cmd)
             raw_snap = json.dumps(payload, ensure_ascii=False).encode('utf-8')
@@ -196,7 +241,15 @@ def _play_or_upload_tts(text: str) -> None:
             )
 
 
-def _start_track_playback(track_index: int, start_sec: float, end_sec: float, ab_state: str) -> None:
+def _start_track_playback(
+    track_index: int,
+    start_sec: float,
+    end_sec: float,
+    ab_state: str,
+    single_loop: bool | None = None,
+) -> None:
+    if single_loop is None:
+        single_loop = STATE.single_loop
     if STATE.volume <= 0:
         HOST_PLAYER.stop()
         seq = STATE.next_seq()
@@ -210,7 +263,7 @@ def _start_track_playback(track_index: int, start_sec: float, end_sec: float, ab
                 start_sec=start_sec,
                 end_sec=end_sec,
                 max_window_sec=120.0,
-                volume_pct=100,
+                volume_pct=STATE.volume,
             )
             HOST_PLAYER.play_ab_loop_mp3(mp3_bytes, volume_pct=STATE.volume)
         else:
@@ -218,6 +271,7 @@ def _start_track_playback(track_index: int, start_sec: float, end_sec: float, ab
                 track_index=track_index,
                 start_sec=start_sec,
                 volume_pct=STATE.volume,
+                single_loop=bool(single_loop),
             )
         seq = STATE.next_seq()
         push_state(
@@ -230,6 +284,7 @@ def _start_track_playback(track_index: int, start_sec: float, end_sec: float, ab
                 'ab_state': ab_state,
                 'ab_a': int(round(actual_start)),
                 'ab_b': int(round(actual_end)),
+                'single_loop': bool(single_loop),
             },
             rebuild=False,
         )
@@ -255,6 +310,7 @@ def _start_track_playback(track_index: int, start_sec: float, end_sec: float, ab
                     'ab_state': ab_state,
                     'ab_a': int(round(actual_start)),
                     'ab_b': int(round(actual_end)),
+                    'single_loop': bool(single_loop),
                 },
                 rebuild=False,
             )
@@ -269,6 +325,8 @@ def handle_device_event(ev: dict[str, Any]) -> None:
         STATE.volume = max(0, min(100, int(ev['volume'])))
     if ev.get('slow_tts') is not None:
         STATE.slow_tts = bool(ev['slow_tts'])
+    if ev.get('single_loop') is not None:
+        STATE.single_loop = bool(ev['single_loop'])
     if ev.get('audio_target') in ('esp32', 'bt'):
         STATE.audio_target = str(ev['audio_target'])
     print(f'[ESP32 Event] {json.dumps(ev, ensure_ascii=False)}', flush=True)
@@ -397,21 +455,30 @@ def handle_device_event(ev: dict[str, Any]) -> None:
             'start_sec': start_sec,
             'end_sec': end_sec,
             'ab_state': ab_state,
+            'single_loop': STATE.single_loop,
         }
-        _start_track_playback(track_index=track_index, start_sec=start_sec, end_sec=end_sec, ab_state=ab_state)
+        _start_track_playback(
+            track_index=track_index,
+            start_sec=start_sec,
+            end_sec=end_sec,
+            ab_state=ab_state,
+            single_loop=STATE.single_loop,
+        )
 
-    elif etype == 'volume_change':
+    elif etype in ('volume_change', 'toggle_single_loop'):
         if STATE.volume <= 0:
             HOST_PLAYER.stop()
             seq = STATE.next_seq()
             push_state(audio_cmd={'action': 'stop', 'target': STATE.audio_target, 'seq': seq}, rebuild=False)
         elif ev.get('playing') and STATE.last_audio_req:
             req = STATE.last_audio_req
+            req['single_loop'] = STATE.single_loop
             _start_track_playback(
                 track_index=req['track_index'],
                 start_sec=req['start_sec'],
                 end_sec=req['end_sec'],
                 ab_state=req['ab_state'],
+                single_loop=STATE.single_loop,
             )
 
     elif etype in ('audio_stop', 'audio_ab_clear'):
