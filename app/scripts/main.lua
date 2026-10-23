@@ -254,6 +254,10 @@ local function run()
         s.play_started_ms=now
       else
         stop_clip()
+        if s.tts_pending then
+          s.tts_pending=false
+          play_clip_file()
+        end
       end
     end
 

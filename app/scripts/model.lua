@@ -302,6 +302,13 @@ function M.feed(s,d,now)
         if cmd.ab_a then s.ab_a=math.floor(tonumber(cmd.ab_a) or 0) end
         if cmd.ab_b then s.ab_b=math.floor(tonumber(cmd.ab_b) or 0) end
         if type(cmd.single_loop)=="boolean" then s.single_loop=cmd.single_loop end
+      elseif cmd.action=="tts" then
+        -- Word/grammar/sentence read-aloud: one-shot clip, must NOT continue the lesson track.
+        s.playing=false
+        s.ab_state="off";s.ab_a=0;s.ab_b=0;s.ab_loops=0
+        s.play_base_sec=0
+        s.waiting_next_chunk=false
+        s.tts_pending=(cmd.target~="bt")
       elseif cmd.action=="stop" then
         s.playing=false
       end
@@ -331,6 +338,7 @@ local function make_audio_event(s,now)
 end
 
 local function make_speak_event(s,text)
+  s.playing=false;s.waiting_next_chunk=false
   return {
     type="speak",
     text=text,

@@ -239,35 +239,18 @@ def _play_or_upload_tts(text: str) -> None:
     if not text or STATE.volume <= 0:
         return
     mp3_bytes = synthesize_japanese_mp3(text, volume_pct=STATE.volume, slow=STATE.slow_tts)
+    # TTS replaces whatever track was playing; forget it so volume/target changes
+    # or device-side continuation never resume the lesson audio afterwards.
+    STATE.last_audio_req = None
     if STATE.audio_target == 'bt':
         HOST_PLAYER.play_mp3_bytes(mp3_bytes, volume_pct=STATE.volume)
         seq = STATE.next_seq()
-        push_state(
-            audio_cmd={
-                'action': 'play',
-                'target': 'bt',
-                'seq': seq,
-                'start_sec': 0,
-                'end_sec': max(2, len(mp3_bytes) // 4000),
-                'ab_state': 'off',
-            },
-            rebuild=False,
-        )
+        push_state(audio_cmd={'action': 'tts', 'target': 'bt', 'seq': seq}, rebuild=False)
     else:
         HOST_PLAYER.stop()
         if upload_clip(mp3_bytes):
             seq = STATE.next_seq()
-            push_state(
-                audio_cmd={
-                    'action': 'play',
-                    'target': 'esp32',
-                    'seq': seq,
-                    'start_sec': 0,
-                    'end_sec': max(2, len(mp3_bytes) // 4000),
-                    'ab_state': 'off',
-                },
-                rebuild=False,
-            )
+            push_state(audio_cmd={'action': 'tts', 'target': 'esp32', 'seq': seq}, rebuild=False)
 
 
 def _start_track_playback(
