@@ -11,6 +11,8 @@ from typing import Any
 import urllib.error
 import urllib.parse
 
+from airplay import AIRPLAY, outputs as airplay_outputs
+
 from audio_engine import (
     AUDIO_ROOT,
     HOST_PLAYER,
@@ -23,7 +25,7 @@ from audio_engine import (
     slice_track_mp3,
     synthesize_japanese_mp3,
 )
-from dataset import build_device_snapshot, record_quiz_submission
+from dataset import build_device_snapshot, record_quiz_submission, resolve_quiz_event
 from device import (
     MAX_LUA_SLOTS,
     bootstrap,
@@ -51,6 +53,15 @@ class BridgeState:
         self.lesson: int = 6
         self.flash_cat: str = 'vocab'
         self.quiz_mode: str = 'fill_blank'
+        try:
+            saved = json.loads((ROOT / '.runtime/study_state.json').read_text(encoding='utf-8'))
+            self.lesson = max(1, min(25, int(saved.get('lesson') or 6)))
+            if saved.get('flash_cat') in ('vocab', 'grammar', 'sentence'):
+                self.flash_cat = saved['flash_cat']
+            if saved.get('quiz_mode') in ('fill_blank', 'correction', 'translate_zh_to_ja', 'review'):
+                self.quiz_mode = saved['quiz_mode']
+        except (OSError, ValueError, TypeError):
+            pass
         self.volume: int = 80
         self.slow_tts: bool = False
         self.single_loop: bool = True
@@ -59,7 +70,7 @@ class BridgeState:
         self.bt_connected: bool = bool(bt_st.get('connected'))
         self.bt_devices: list[dict[str, Any]] = list(bt_st.get('devices') or [])
         self.bt_scanning: bool = False
-        self.audio_target: str = 'bt' if self.bt_connected else 'esp32'
+        self.audio_target: str = 'airplay' if AIRPLAY.uid else ('bt' if self.bt_connected else 'esp32')
         self.last_bt_check_ts: float = time.monotonic()
         self.last_audio_req: dict[str, Any] | None = None
         self.clip_seq: int = int(time.time()) % 100000
@@ -82,6 +93,18 @@ class BridgeState:
         if not force and (now - self.last_bt_check_ts) < 4.0:
             return {'name': self.bt_name, 'connected': self.bt_connected, 'devices': self.bt_devices}
         st = get_bt_status()
+        try:
+            discovered = airplay_outputs()
+            st['devices'] = [x for x in (st.get('devices') or []) if x.get('is_audio') is not False] + [
+                {'name':x['name']+' · AirPlay','address':'airplay:'+x['uid'], 'paired':True,
+                 'connected':self.audio_target=='airplay' and AIRPLAY.uid==x['uid']}
+                for x in discovered]
+            if self.audio_target == 'airplay':
+                chosen = next((x for x in discovered if x['uid']==AIRPLAY.uid), None)
+                st['name'] = (chosen['name'] if chosen else '输出离线') + ' · AirPlay'
+                st['connected'] = chosen is not None
+        except Exception:
+            pass
         with self.lock:
             self.bt_name = str(st.get('name') or self.bt_name or '未选择设备')
             self.bt_connected = bool(st.get('connected'))
@@ -110,6 +133,10 @@ class BridgeState:
             snap['bt_scanning'] = self.bt_scanning
             snap['audio_target'] = self.audio_target
             self.snapshot = snap
+            (ROOT / '.runtime').mkdir(exist_ok=True)
+            (ROOT / '.runtime/study_state.json').write_text(json.dumps({
+                'lesson': self.lesson, 'flash_cat': self.flash_cat, 'quiz_mode': self.quiz_mode,
+            }) + '\n', encoding='utf-8')
             (ROOT / 'evidence').mkdir(exist_ok=True)
             (ROOT / 'evidence/latest.json').write_text(
                 json.dumps(snap, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
@@ -242,7 +269,11 @@ def _play_or_upload_tts(text: str) -> None:
     # TTS replaces whatever track was playing; forget it so volume/target changes
     # or device-side continuation never resume the lesson audio afterwards.
     STATE.last_audio_req = None
-    if STATE.audio_target == 'bt':
+    if STATE.audio_target == 'airplay':
+        HOST_PLAYER.stop()
+        AIRPLAY.play(mp3_bytes, volume=STATE.volume)
+        push_state(audio_cmd={'action':'tts','target':'airplay','seq':STATE.next_seq()}, rebuild=False)
+    elif STATE.audio_target == 'bt':
         HOST_PLAYER.play_mp3_bytes(mp3_bytes, volume_pct=STATE.volume)
         seq = STATE.next_seq()
         push_state(audio_cmd={'action': 'tts', 'target': 'bt', 'seq': seq}, rebuild=False)
@@ -268,7 +299,18 @@ def _start_track_playback(
         push_state(audio_cmd={'action': 'stop', 'target': STATE.audio_target, 'seq': seq}, rebuild=False)
         return
 
-    if STATE.audio_target == 'bt':
+    if STATE.audio_target == 'airplay':
+        HOST_PLAYER.stop()
+        tr = next((t for t in load_manifest().get('tracks', []) if int(t['index']) == track_index), None)
+        if not tr: raise ValueError('未找到课文音轨')
+        mp3_bytes, actual_start, actual_end = slice_track_mp3(
+            track_index, start_sec, end_sec if ab_state == 'loop' else float(tr['duration']),
+            max_window_sec=float(tr['duration']), volume_pct=80)
+        AIRPLAY.play(mp3_bytes, loop=ab_state == 'loop' or bool(single_loop), volume=STATE.volume)
+        push_state(audio_cmd={'action':'play','target':'airplay','seq':STATE.next_seq(),
+            'start_sec':actual_start,'end_sec':actual_end,'ab_state':ab_state,
+            'ab_a':int(actual_start),'ab_b':int(actual_end),'single_loop':bool(single_loop)}, rebuild=False)
+    elif STATE.audio_target == 'bt':
         if ab_state == 'loop':
             mp3_bytes, actual_start, actual_end = slice_track_mp3(
                 track_index=track_index,
@@ -339,7 +381,7 @@ def handle_device_event(ev: dict[str, Any]) -> None:
         STATE.slow_tts = bool(ev['slow_tts'])
     if ev.get('single_loop') is not None:
         STATE.single_loop = bool(ev['single_loop'])
-    if ev.get('audio_target') in ('esp32', 'bt'):
+    if ev.get('audio_target') in ('esp32', 'bt', 'airplay'):
         STATE.audio_target = str(ev['audio_target'])
     print(f'[ESP32 Event] {json.dumps(ev, ensure_ascii=False)}', flush=True)
 
@@ -380,9 +422,23 @@ def handle_device_event(ev: dict[str, Any]) -> None:
                 if isinstance(res.get('devices'), list):
                     STATE.bt_devices = list(res['devices'])
                 STATE.last_bt_check_ts = time.monotonic()
+            STATE.refresh_bt_status(force=True)
             print(f'[Bluetooth Scan] {json.dumps(res, ensure_ascii=False)}', flush=True)
             push_state(rebuild=False)
+        elif action in ('connect', 'pair') and target.startswith('airplay:'):
+            HOST_PLAYER.stop()
+            AIRPLAY.select(target.removeprefix('airplay:'))
+            STATE.last_audio_req = None
+            STATE.audio_target = 'airplay'
+            STATE.refresh_bt_status(force=True)
+            push_state(rebuild=False)
+        elif action == 'disconnect' and target.startswith('airplay:'):
+            HOST_PLAYER.stop()
+            STATE.audio_target = 'esp32'
+            STATE.refresh_bt_status(force=True)
+            push_state(rebuild=False)
         elif action in ('connect', 'pair'):
+            HOST_PLAYER.stop()
             STATE.audio_target = 'bt'
             res = connect_bt_headphones(target)
             with STATE.lock:
@@ -434,12 +490,12 @@ def handle_device_event(ev: dict[str, Any]) -> None:
     elif etype == 'quiz_answer':
         if ev.get('lesson'):
             STATE.lesson = max(1, min(25, int(ev['lesson'])))
-        q_idx = int(ev.get('quiz_index') or 1)
-        chosen = int(ev.get('chosen') or 1)
-        mode = str(ev.get('quiz_mode') or STATE.quiz_mode)
-        quizzes_by_mode = STATE.snapshot.get('quizzes_by_mode') or {}
-        quizzes = quizzes_by_mode.get(mode) or STATE.snapshot.get('quizzes') or []
-        quiz_item = quizzes[q_idx - 1] if 1 <= q_idx <= len(quizzes) else {}
+        chosen = int(ev.get('chosen') or 0)
+        quiz_item = resolve_quiz_event(ev, STATE.snapshot)
+        if not quiz_item:
+            print('[Quiz Sync] Unknown/stale question; skipped recording and refreshing textbook questions.', flush=True)
+            push_state(rebuild=True)
+            return
         if quiz_item:
             rec = record_quiz_submission(
                 student_id=STATE.student_id,
@@ -448,7 +504,7 @@ def handle_device_event(ev: dict[str, Any]) -> None:
                 chosen_index=chosen,
             )
             print(f'[Quiz Sync -> minna-no-nihongo-agent] {json.dumps(rec, ensure_ascii=False)}', flush=True)
-        speak_text = str(ev.get('speak') or quiz_item.get('speak') or '').strip()
+        speak_text = str(quiz_item.get('speak') or '').strip()
         if speak_text and STATE.volume > 0:
             _play_or_upload_tts(speak_text)
 
@@ -614,6 +670,16 @@ WEB_HTML = """<!doctype html>
       <button onclick="apiCall('/api/esp/badge')">切回「AI Mac mini 状态牌」</button>
     </div>
   </header>
+  <div class="card" style="margin-bottom:14px">
+    <h2>HomePod / AirPlay 输出</h2>
+    <select id="airplayOutputs"></select>
+    <button onclick="refreshAirplay()">刷新输出</button>
+    <button onclick="selectAirplay()">选择输出</button>
+    <button onclick="airplayAction('test')">日语试听</button>
+    <button onclick="airplayAction('stop')">停止</button>
+    <div id="airplayResult" role="status"></div>
+    <div class="stat">通过 Mac 音乐 App 播放，会替换它当前的音乐。ESP32 设定 → 选择音频也可选择 AirPlay 设备。</div>
+  </div>
   <div class="grid">
     <div class="card">
       <h2>课次选择 (与 ESP32 实时同步 L01-L25)</h2>
@@ -640,6 +706,15 @@ WEB_HTML = """<!doctype html>
   </div>
 </div>
 <script>
+async function refreshAirplay(){
+ const st=await (await fetch('/api/airplay')).json(), sel=document.getElementById('airplayOutputs');sel.replaceChildren();
+ for(const d of st.items||[]){const o=new Option(d.name,d.uid);o.selected=d.uid===st.uid;sel.add(o);}
+ document.getElementById('airplayResult').textContent=st.error||'选择 HomePod 所在房间后试听';
+}
+async function selectAirplay(){await airplayAction('select',document.getElementById('airplayOutputs').value);}
+async function airplayAction(action,uid){const st=await (await fetch('/api/esp/airplay',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,uid})})).json();document.getElementById('airplayResult').textContent=st.ok?'操作成功':st.error;}
+refreshAirplay();
+
 let currentLesson = 6;
 let currentTrackIndex = 52;
 let tracks = [];
@@ -781,6 +856,11 @@ class WebHandler(BaseHTTPRequestHandler):
             self.wfile.write(raw)
             return
 
+        if parsed.path == '/api/airplay':
+            try: self._send_json({'ok':True,'items':airplay_outputs(),'uid':AIRPLAY.uid,'error':AIRPLAY.error})
+            except Exception as exc: self._send_json({'ok':False,'error':str(exc)},503)
+            return
+
         if parsed.path == '/api/state':
             snap = STATE.snapshot
             self._send_json(
@@ -791,6 +871,9 @@ class WebHandler(BaseHTTPRequestHandler):
                     'lesson': STATE.lesson,
                     'flash_cat': STATE.flash_cat,
                     'quiz_mode': STATE.quiz_mode,
+                    'content_version': snap.get('content_version'),
+                    'question_counts': {m: len(qs) for m, qs in (snap.get('quizzes_by_mode') or {}).items()},
+                    'airplay_error': AIRPLAY.error,
                     'audio_target': STATE.audio_target,
                     'bt_name': STATE.bt_name,
                     'bt_connected': STATE.bt_connected,
@@ -828,6 +911,32 @@ class WebHandler(BaseHTTPRequestHandler):
         length = int(self.headers.get('Content-Length') or 0)
         body = json.loads(self.rfile.read(length) or b'{}') if length > 0 else {}
 
+        if self.path == '/api/esp/airplay':
+            try:
+                action=body.get('action','select')
+                if action == 'select':
+                    HOST_PLAYER.stop()
+                    AIRPLAY.select(str(body['uid']))
+                    STATE.last_audio_req = None
+                    STATE.audio_target='airplay'
+                elif action == 'test':
+                    if STATE.audio_target != 'airplay': raise ValueError('请先选择 AirPlay 输出')
+                    original_volume=STATE.volume
+                    try:
+                        STATE.volume=min(25, STATE.volume)
+                        _play_or_upload_tts('こんにちは。日本語の音声テストです。')
+                    finally:
+                        STATE.volume=original_volume
+                elif action == 'stop':
+                    HOST_PLAYER.stop()
+                    push_state(audio_cmd={'action':'stop','target':STATE.audio_target,'seq':STATE.next_seq()},rebuild=False)
+                else: raise ValueError('未知操作')
+                STATE.refresh_bt_status(force=True)
+                push_state(rebuild=False)
+                self._send_json({'ok':True,'audio_target':STATE.audio_target})
+            except Exception as exc: self._send_json({'ok':False,'error':str(exc)},503)
+            return
+
         if self.path == '/api/esp/lesson':
             handle_device_event({'type': 'select_lesson', 'lesson': int(body.get('lesson') or 6)})
             self._send_json({'ok': True, 'lesson': STATE.lesson})
@@ -845,6 +954,7 @@ class WebHandler(BaseHTTPRequestHandler):
             self._send_json(
                 {
                     'ok': True,
+                    'airplay_error': AIRPLAY.error,
                     'audio_target': STATE.audio_target,
                     'bt_name': STATE.bt_name,
                     'bt_connected': STATE.bt_connected,

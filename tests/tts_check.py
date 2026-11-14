@@ -22,7 +22,9 @@ model = lua.execute((ROOT / 'app/scripts/model.lua').read_text(encoding='utf-8')
 s = model.new()
 model.feed(s, table(build_device_snapshot(lesson_num=6, flash_cat='vocab', quiz_mode='fill_blank')), 1000)
 
-for target in ('esp32', 'bt'):
+for target in ('esp32', 'bt', 'airplay'):
+    s = model.new()
+    model.feed(s, table(build_device_snapshot(lesson_num=6)), 1000)
     # lesson track playing, then user taps a card read-aloud
     model.feed(s, table({'audio_cmd': {'action': 'play', 'target': target, 'seq': 10 if target == 'esp32' else 20,
                                         'start_sec': 0, 'end_sec': 30, 'ab_state': 'off'}}), 2000)
@@ -41,3 +43,14 @@ for target in ('esp32', 'bt'):
     s.tts_pending = False
 
 print('TTS does not resume lesson track: OK')
+
+# AirPlay row selection and one-shot testing must preserve its target.
+s.page=5;s.bt_modal=True
+s.bt_devices=table([{'name':'客厅 · AirPlay','address':'airplay:4351','paired':True,'connected':False}])
+model.touch(s,table({'x':180,'y':125}),3000)
+act,ev=model.touch(s,None,3030)
+assert ev.target=='airplay:4351' and ev.audio_target=='airplay'
+model.touch(s,table({'x':220,'y':380}),3100)
+act,ev=model.touch(s,None,3130)
+assert ev.type=='speak' and ev.audio_target=='airplay'
+print('AirPlay touch routing: OK')

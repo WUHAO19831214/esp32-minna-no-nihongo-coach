@@ -63,6 +63,11 @@
 1. **准备配置与音频**
    ```bash
    cp bridge.example.json bridge.local.json
+   cp app/config.example.json app/config.json
+   # 用 openssl rand -hex 32 生成一个新 token，同步填入两个本地配置；设备地址填入 bridge.local.json。
+   # 已配对的设备请保留原本地配置。
+   # 教材项目在其他目录时，设置 MINNA_AGENT_ROOT 为其绝对路径。
+   # 教材项目：https://github.com/WUHAO19831214/local-teaching-agent
    # 如需重新拉取喜马拉雅 238 条离线 MP3 音频：
    python3 scripts/download_ximalaya.py
    # 编译 macOS 原生蓝牙扫描与配对助手：
@@ -100,3 +105,25 @@ Codex 已统一部署、逐文件校验：Mini 70项检查与日语16项共存�
 已重新连接 BV370，用户真机确认“有声音，读完没有串播”；设备返回日语界面在线且 `playing=false`，Mini 接收器仍同步。TTS Lua 回归（蓝牙/ESP32 两目标）、16 项共存回归、五页及蓝牙弹窗检查通过。ESP32 自带喇叭本次未做人工听音验收。没有刷机或重启硬件。蓝牙断开后仍可能需要在设定页重新连接，不能将本次验收理解为断电重启后的自动重连保证。
 
 补充回归：使用已安装 Lupa、Pillow 的 Python 环境执行 `python tests/tts_check.py`、`python tests/coexistence_check.py`、`python tests/check.py`。本地令牌、日志和现场证据不随本次修复提交。
+
+## 2026-10-24 教材题库与学情修复
+
+错题回放改为使用可追溯的教材答案；取消随机替换助词猜答案、截断句子和仅按序号同步判题。第 13 课正确区分「を／が」「へ／に」和动作目的「に」。重建 25 课离线题包，完整选项用两行显示；没有可靠改错规则时明确提示。
+
+旧记录可以按原始事件审计，隔离错配或无可靠来源的记录，并纠正错误统计。明确的复习结果更新原错题，到期前重复作答不重复增加掌握度。主项目的模型讲解增加教材检索；设备判题保持离线确定性。
+
+新增 `tests/test_grounded_quiz.py`、`tests/grounded_ui_check.py` 和 `tests/receiver_restore_check.py`。共存回归扩至 19 项：显式切回状态牌时可以恢复因 Air 共存分支而退出的 Mini 接收器，后台不做此恢复；不修改 Mini/Air 文件，不重启它们的 Mac 服务。已真机验证日语题目加载及往返切换，最后恢复 Mini 界面。
+
+维护命令：`python3 scripts/build_grounded_lessons.py` 生成并审计题包；`python3 scripts/deploy_grounded_lessons.py` 备份、增量上传并逐字节校验。历史迁移脚本只在明确审计时使用，不能作为每次启动动作。完整说明见[主教材项目的更新记录](https://github.com/WUHAO19831214/local-teaching-agent/blob/main/docs/TEACHING_UPGRADE_20261024.md)；教材来源仍有未补齐部分，不能把本次修复宣称为纸质教材全书校勘完成。
+
+## 2026-11-07 HomePod mini / AirPlay
+
+参考同机 `esp32-apple-music-macmini`，新增官方 Music App AirPlay 播放链路。ESP32「设定 → 选择音频」刷新后可选带 `AirPlay` 的房间；HomePod 的“客厅”蓝牙记录不是此输出，请选择“客厅 · AirPlay”。机身喇叭与 BV370 蓝牙仍可使用。网页 `http://127.0.0.1:7865` 新增输出刷新、选择、日语试听与停止。
+
+课文、A-B 循环和朗读均使用所选 AirPlay 输出；保存的输出只在明确播放时连接，Mac 后台不抢屏，不新增 Lua 接收任务，不依赖 Apple Music 项目的本机端口或令牌。Mac 与 HomePod 须在可互访网络，Music 须允许本机脚本控制。找不到输出时刷新列表再选择，不自动回退到其他音箱。
+
+播放会接管 Mac“音乐”App，并使用专用「大家的日语 · Mac mini」歌单导入本地课文/朗读缓存，不改订阅账号或其他歌单。缓存位于忽略的 `.runtime/airplay_audio`。Music 的音量、随机/循环是共享状态，学习时请勿同时用另一个音乐控制器播放。停止仅针对当前仍属于日语的音轨，用户切歌后不会停止新歌曲。
+
+现场发现即使使用 Music 的 `once`，HomePod 仍可能在朗读自然结束后续播自己的音乐。现改为给单次音频附加静音尾段、在尾段中主动停止，并用请求代次阻止旧结束回调打断新朗读；课文单次播放也使用此处理。用户已确认日语完整读完，随后保持安静。连续循环和单曲循环在静音尾段内将同一音轨进度重置，避免 HomePod 自然结束时恢复其他音乐，按停止结束。AirPlay 本身有缓冲延迟，A-B 是所选片段的重复播放，切换不等同于机身喇叭的即时响应。
+
+发布公开题包时用 `python3 scripts/build_grounded_lessons.py --public-output /path/to/public-lessons`，仅生成教材题，不读学生错题。不要提交运行时快照、设备令牌、配对记录和日志。

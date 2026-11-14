@@ -26,6 +26,7 @@ MINI_RECEIVER = '/nand/apps/ai_mac_mini/scripts/receiver.lua'
 MINI_UI = device.MINI_MAIN
 MINI_IND = '/nand/apps/ai_mac_mini/scripts/indicator_worker.lua'
 AIR_RECEIVER = '/nand/apps/ai_badge/scripts/receiver.lua'
+AIR_IND = '/nand/apps/ai_badge/scripts/indicator_worker.lua'
 OWN_UI = device.OWN_MAIN
 
 
@@ -36,11 +37,12 @@ def http_error(code: int, url: str = 'http://fake') -> urllib.error.HTTPError:
 class FakeDevice:
     """Tiny simulation of the ESP32 Lua job table (4 slots) and the two receiver routes."""
 
-    def __init__(self, paths, stop_works=True, mini_start_works=True, files=None):
+    def __init__(self, paths, stop_works=True, mini_start_works=True, files=None, restore_mini_receiver=False):
         self.jobs = [(f'j{i}', p) for i, p in enumerate(paths)]
         self.seq = len(self.jobs)
         self.stop_works = stop_works
         self.mini_start_works = mini_start_works
+        self.restore_mini_receiver = restore_mini_receiver
         self.files = dict(files or {})
         self.mutations: list[tuple] = []
         self.list_calls = 0
@@ -96,8 +98,14 @@ class FakeDevice:
                 self.remove_path(target[1])
         elif action == 'start' and mini_route:
             self.mutations.append(('start_mini',))
+            self.remove_path(AIR_IND)  # Mini's existing explicit foreground handoff
             if self.mini_start_works and len(self.jobs) < device.MAX_LUA_SLOTS:
                 self.add(MINI_UI)
+        elif action == 'restore_badge_receiver':
+            if not self.restore_mini_receiver or len(self.jobs) >= device.MAX_LUA_SLOTS:
+                return b'{"ok":false,"state":"slots_full_or_unavailable"}'
+            self.mutations.append(('restore_mini_receiver',))
+            self.add(MINI_RECEIVER)
         elif action == 'start' and not mini_route:
             self.mutations.append(('start_minna',))
             self.add(OWN_UI)
@@ -236,6 +244,31 @@ class CoexistenceTests(unittest.TestCase):
         self.assertEqual(out['state'], 'mini_route_unavailable')
         self.assertTrue(out['recoverable'] and out['minna_ui_stopped'])
         self.assertEqual(fake.mutations, [('stop_minna_exit',)])
+
+    def test_explicit_badge_handoff_restores_receiver_after_air_teardown(self):
+        fake = self.install(FakeDevice([MINNA_RECEIVER, AIR_RECEIVER, AIR_IND, OWN_UI], restore_mini_receiver=True))
+        out = device.switch_to_badge()
+        self.assertTrue(out['ok'], out)
+        self.assertTrue(fake.has(AIR_RECEIVER) and fake.has(MINNA_RECEIVER) and fake.has(MINI_UI))
+        self.assertFalse(fake.has(OWN_UI))
+        self.assertLessEqual(len(fake.jobs), 4)
+        self.assertEqual(fake.mutations, [('stop_minna_exit',), ('restore_mini_receiver',), ('start_mini',)])
+
+    def test_explicit_badge_handoff_cannot_restore_into_full_slots(self):
+        fake = self.install(FakeDevice([MINNA_RECEIVER, AIR_RECEIVER, AIR_IND, '/nand/apps/other/worker.lua'], restore_mini_receiver=True))
+        out = device.switch_to_badge()
+        self.assertFalse(out['ok'])
+        self.assertNotIn(('restore_mini_receiver',), fake.mutations)
+        self.assertEqual(len(fake.jobs), 4)
+
+    def test_timeout_after_successful_start_is_verified_from_jobs(self):
+        def started_then_timeout(*args, **kwargs):
+            fake.add(MINI_UI)
+            raise http_error(504)
+        # Keep a direct reference; fake's HTTP table remains the authoritative state.
+        fake = self.install(FakeDevice([MINNA_RECEIVER, MINI_RECEIVER]))
+        with mock.patch.object(device, 'mini_control', side_effect=started_then_timeout):
+            self.assertTrue(device.switch_to_badge()['ok'])
 
     def test_switch_to_badge_does_not_claim_ok_when_mini_never_shows_up(self):
         fake = self.install(FakeDevice([MINNA_RECEIVER, OWN_UI, MINI_RECEIVER], mini_start_works=False))

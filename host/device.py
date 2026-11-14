@@ -182,14 +182,44 @@ def switch_to_badge() -> dict:
     try:
         mini = mini_control('start')
     except LUA_NETWORK_ERRORS as exc:
-        return {
-            'ok': False,
-            'state': 'mini_route_unavailable',
-            'recoverable': True,
-            'minna_ui_stopped': True,
-            'detail': str(exc),
-            'hint': 'Japanese UI stopped; open the AI Mac mini icon on the device desktop, nothing else was changed.',
-        }
+        # Air-active Mini teardown may release its receiver. Restore that exact
+        # installed receiver only during this explicit handoff, through our route.
+        if isinstance(exc, urllib.error.HTTPError) and exc.code == 404:
+            try:
+                restored = control('restore_badge_receiver')
+                if restored.get('ok'):
+                    for _ in range(12):
+                        try:
+                            mini = mini_control('start')
+                            break
+                        except urllib.error.HTTPError as retry_error:
+                            if retry_error.code != 404:
+                                raise
+                            time.sleep(0.2)
+                    else:
+                        raise exc
+                else:
+                    raise exc
+            except LUA_NETWORK_ERRORS as restore_error:
+                exc = restore_error
+            else:
+                exc = None
+        # A timed-out start can still have succeeded on the device. Verify the
+        # actual job rather than claiming either success or failure from HTTP alone.
+        _, confirmed_jobs = list_jobs()
+        if confirmed_jobs is not None and any(j['path'] == MINI_MAIN for j in confirmed_jobs):
+            return {'ok': True, 'state': 'mini_started', 'minna_ui_stopped': True}
+        if exc is None:
+            mini = {'ok': True}
+        else:
+            return {
+                'ok': False,
+                'state': 'mini_route_unavailable',
+                'recoverable': True,
+                'minna_ui_stopped': True,
+                'detail': str(exc),
+                'hint': 'Japanese UI stopped; open the AI Mac mini icon on the device desktop.',
+            }
     _, jobs = list_jobs()
     running = jobs is not None and any(j['path'] == MINI_MAIN for j in jobs)
     return {

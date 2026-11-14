@@ -135,7 +135,7 @@ end
 function M.active_quizzes(s)
   if type(s.data.quizzes_by_mode)=="table" then
     local list=s.data.quizzes_by_mode[s.quiz_mode]
-    if type(list)=="table" and #list>0 then return list end
+    if type(list)=="table" then return list end
   end
   return s.data.quizzes or {}
 end
@@ -152,7 +152,7 @@ end
 function M.current_quiz(s)
   local quizzes=M.active_quizzes(s)
   if #quizzes==0 then
-    return {mode_label="练习",prompt="正在加载题目...",hint="",options={"A","B","C"},correct=1,explanation="",speak=""},1,1
+    return {empty=true,mode_label="教材练习",prompt="本课暂无可核实的改错题",hint="请使用填空、中译日或词句复习",options={},explanation="",speak=""},0,0
   end
   local idx=clamp(s.quiz_index,1,#quizzes)
   return quizzes[idx],idx,#quizzes
@@ -196,6 +196,7 @@ function M.validate(d)
     or type(d.cards)=="table"
     or type(d.cards_by_cat)=="table"
     or type(d.quizzes)=="table"
+    or type(d.quizzes_by_mode)=="table"
     or type(d.tracks)=="table"
     or type(d.audio_cmd)=="table"
     or type(d.bt_devices)=="table"
@@ -281,7 +282,7 @@ function M.feed(s,d,now)
     s.bt_page=clamp(s.bt_page or 1,1,max_p)
     changed=true
   end
-  if type(d.audio_target)=="string" and (d.audio_target=="esp32" or d.audio_target=="bt") then
+  if type(d.audio_target)=="string" and (d.audio_target=="esp32" or d.audio_target=="bt" or d.audio_target=="airplay") then
     if d.audio_target~=s.audio_target then s.audio_target=d.audio_target;changed=true end
   end
   if type(d.audio_cmd)=="table" then
@@ -290,7 +291,7 @@ function M.feed(s,d,now)
     if seq>s.clip_seq then
       s.clip_seq=seq
       s.waiting_next_chunk=false
-      if type(cmd.target)=="string" and (cmd.target=="esp32" or cmd.target=="bt") then
+      if type(cmd.target)=="string" and (cmd.target=="esp32" or cmd.target=="bt" or cmd.target=="airplay") then
         s.audio_target=cmd.target
       end
       if cmd.action=="play" then
@@ -308,7 +309,7 @@ function M.feed(s,d,now)
         s.ab_state="off";s.ab_a=0;s.ab_b=0;s.ab_loops=0
         s.play_base_sec=0
         s.waiting_next_chunk=false
-        s.tts_pending=(cmd.target~="bt")
+        s.tts_pending=(cmd.target=="esp32")
       elseif cmd.action=="stop" then
         s.playing=false
       end
@@ -464,11 +465,12 @@ function M.handle_tap(s,x,y,now)
     elseif y>=202 and y<=356 then
       local opt=clamp(math.floor((y-202)/52)+1,1,3)
       if s.quiz_selected==0 then
-        s.quiz_selected=opt
         local q,idx=M.current_quiz(s)
+        if q.empty then return "tap" end
+        s.quiz_selected=opt
         s.quiz_last_correct=(opt==(tonumber(q.correct) or 1))
         s.quiz_feedback_ms=now
-        return "answer",{type="quiz_answer",lesson=s.lesson,quiz_mode=s.quiz_mode,quiz_index=idx,chosen=opt,speak=q.speak,volume=s.volume,slow_tts=s.slow_tts,audio_target=s.audio_target}
+        return "answer",{type="quiz_answer",question_id=q.question_id,lesson=s.lesson,quiz_mode=s.quiz_mode,quiz_index=idx,chosen=opt,speak=q.speak,volume=s.volume,slow_tts=s.slow_tts,audio_target=s.audio_target}
       end
       return "tap"
     elseif y>=360 and y<=422 then
@@ -603,7 +605,7 @@ function M.handle_tap(s,x,y,now)
           s.data_seq=(s.data_seq or 0)+1
           return "bt_scan",{type="bt_control",action="scan"}
         elseif x>=180 and x<=354 then
-          s.audio_target=(s.audio_target=="bt") and "esp32" or "bt"
+          s.audio_target=(s.audio_target~="esp32") and "esp32" or "bt"
           s.data_seq=(s.data_seq or 0)+1
           return "bt_toggle",{type="bt_control",action="set_target",audio_target=s.audio_target,volume=s.volume,playing=s.playing}
         elseif x>=358 and x<=464 then
@@ -625,10 +627,10 @@ function M.handle_tap(s,x,y,now)
             return "bt_disconnect",{type="bt_control",action="disconnect",target=target}
           else
             s.bt_name=dev.name or target
-            s.audio_target="bt"
+            s.audio_target=target:sub(1,8)=="airplay:" and "airplay" or "bt"
             s.data_seq=(s.data_seq or 0)+1
             local act_type=dev.paired and "connect" or "pair"
-            return "bt_connect",{type="bt_control",action=act_type,target=target,audio_target="bt",volume=s.volume,playing=s.playing}
+            return "bt_connect",{type="bt_control",action=act_type,target=target,audio_target=s.audio_target,volume=s.volume,playing=s.playing}
           end
         end
         return "tap"
@@ -642,7 +644,7 @@ function M.handle_tap(s,x,y,now)
           return "tap"
         elseif x<=342 then
           if s.volume==0 then s.volume=60 end
-          s.audio_target="bt"
+          if s.audio_target=="esp32" then s.audio_target="bt" end
           s.data_seq=(s.data_seq or 0)+1
           return "speak",make_speak_event(s,"こんにちは。Bluetoothオーディオのテストです。")
         else
@@ -673,7 +675,7 @@ function M.handle_tap(s,x,y,now)
     -- Row 2: Bluetooth Audio & Output controls (y=142..228)
     elseif y>=142 and y<=228 then
       if y>=168 and x>=28 and x<=238 then
-        s.audio_target=(s.audio_target=="bt") and "esp32" or "bt"
+        s.audio_target=(s.audio_target~="esp32") and "esp32" or "bt"
         s.data_seq=(s.data_seq or 0)+1
         return "bt_toggle",{type="bt_control",action="set_target",audio_target=s.audio_target,volume=s.volume,playing=s.playing}
       else
@@ -781,6 +783,7 @@ function M.buttons(s,left_level,right_level,now)
       event=make_speak_event(s,c.speak or c.front)
     elseif s.page==2 then
       local q=M.current_quiz(s)
+      if q.empty then return "tap" end
       if s.quiz_selected==0 then s.quiz_selected=tonumber(q.correct) or 1;s.quiz_last_correct=true;s.quiz_feedback_ms=now end
       action="key_r_quiz"
       event=make_speak_event(s,q.speak or q.prompt)

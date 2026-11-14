@@ -171,12 +171,12 @@ local function draw_quiz(sc,s)
   sc:fill_round_rect(20,96,440,98,14,C.panel)
   local hdr=string.format("[%s] %d/%d · %s",q.mode_label or "练习",idx,total,q.target_label or "语法")
   text(sc,34,104,hdr,16,C.teal,412)
-  text(sc,34,128,q.prompt or "",20,C.white,412)
-  text(sc,34,160,"提示: "..(q.hint or ""),16,C.dim,412)
+  wrap_text(sc,34,126,q.prompt or "",16,C.white,412,2,19)
+  text(sc,34,170,"提示: "..(q.hint or ""),16,C.dim,412)
 
   local opts=q.options or {"选项A","选项B","选项C"}
   local correct_idx=tonumber(q.correct) or 1
-  for i=1,3 do
+  for i=1,(q.empty and 0 or 3) do
     local y=202+(i-1)*52
     local bg=C.card
     local fg=C.white
@@ -189,7 +189,7 @@ local function draw_quiz(sc,s)
       end
     end
     sc:fill_round_rect(20,y,440,46,12,bg)
-    text(sc,36,y+12,prefix..tostring(opts[i] or ""),20,fg,408)
+    wrap_text(sc,36,y+4,prefix..tostring(opts[i] or ""),16,fg,408,2,19)
   end
 
   sc:fill_round_rect(20,360,304,52,12,C.panel)
@@ -214,7 +214,7 @@ local function draw_repeater(sc,s,now)
 
   sc:fill_round_rect(20,96,440,132,16,C.panel)
   local vol_str=(tonumber(s.volume) or 80)==0 and "静音" or (tostring(s.volume or 80).."%")
-  local out_lbl=(s.audio_target=="bt") and "蓝牙耳机" or "机身喇叭"
+  local out_lbl=(s.audio_target~="esp32") and (s.audio_target=="airplay" and "AirPlay" or "蓝牙耳机") or "机身喇叭"
   local state_txt=s.ab_state=="loop" and ("AB 复读循环中 · "..out_lbl.." "..vol_str)
     or (s.ab_state=="a_set" and "已标起点 A，请按 B 点或右键开启复读")
     or (s.playing and ("正在播放 · "..out_lbl.." "..vol_str) or ("已暂停 · "..out_lbl.." "..vol_str))
@@ -264,7 +264,7 @@ local function draw_repeater(sc,s,now)
 
   -- Row 3: Transport
   pill(sc,20,350,94,58,"-3秒",20,false)
-  local play_lbl=s.playing and "暂停播放" or ((s.audio_target=="bt") and "播放 (蓝牙耳机)" or "播放 (机身喇叭)")
+  local play_lbl=s.playing and "暂停播放" or ((s.audio_target~="esp32") and (s.audio_target=="airplay" and "播放 (AirPlay)" or "播放 (蓝牙耳机)") or "播放 (机身喇叭)")
   pill(sc,122,350,236,58,play_lbl,20,true,s.playing and C.orange or C.teal,C.dark)
   pill(sc,366,350,94,58,"+3秒",20,false)
 end
@@ -291,14 +291,14 @@ local function draw_lessons(sc,s)
 end
 
 local function draw_bt_modal(sc,s)
-  local is_bt=(s.audio_target=="bt")
+  local is_bt=(s.audio_target~="esp32")
   local devs=s.bt_devices or {}
   local max_p=math.max(1,math.ceil(#devs/4))
   local pg=math.max(1,math.min(max_p,tonumber(s.bt_page) or 1))
 
   -- Top bar (y=56..94)
-  pill(sc,20,56,154,38,s.bt_scanning and "正在扫描周边.." or "扫描周边蓝牙",16,true,s.bt_scanning and C.orange or C.teal,C.dark)
-  pill(sc,182,56,168,38,is_bt and "输出: 蓝牙音频" or "输出: 机身喇叭",16,is_bt,C.blue,C.dark)
+  pill(sc,20,56,154,38,s.bt_scanning and "正在扫描周边.." or "刷新音频设备",16,true,s.bt_scanning and C.orange or C.teal,C.dark)
+  pill(sc,182,56,168,38,is_bt and (s.audio_target=="airplay" and "输出: AirPlay" or "输出: 蓝牙音频") or "输出: 机身喇叭",16,is_bt,C.blue,C.dark)
   pill(sc,358,56,102,38,"返回设定",16,false)
 
   if #devs==0 then
@@ -332,7 +332,7 @@ local function draw_bt_modal(sc,s)
 
   -- Bottom bar (y=360..414)
   pill(sc,20,360,112,52,string.format("< 页 %d/%d",pg,max_p),16,false)
-  pill(sc,140,360,200,52,"试听当前蓝牙音频",20,true,C.teal,C.dark)
+  pill(sc,140,360,200,52,"试听所选音频",20,true,C.teal,C.dark)
   pill(sc,348,360,112,52,"下一页 >",16,false)
 end
 
@@ -344,7 +344,7 @@ local function draw_settings(sc,s)
 
   local vol=tonumber(s.volume) or 80
   local bri=tonumber(s.brightness) or 75
-  local is_bt=(s.audio_target=="bt")
+  local is_bt=(s.audio_target~="esp32")
   local bt_name=tostring(s.bt_name or "未选择设备")
   local dev_count=#(s.bt_devices or {})
 
@@ -364,10 +364,10 @@ local function draw_settings(sc,s)
   -- Row 2: Bluetooth Audio Selection & Pairing (y=142..226)
   sc:fill_round_rect(20,142,440,84,14,C.panel)
   sc:fill_circle(36,158,5,s.bt_connected and C.green or (is_bt and C.blue or C.dim))
-  local bt_hdr=string.format("蓝牙音频: %s (%s · %d台可选)",bt_name,s.bt_connected and "已连接" or "待连接",dev_count)
+  local bt_hdr=string.format("音频设备: %s (%s · %d台可选)",bt_name,s.bt_connected and "已连接" or "待连接",dev_count)
   text(sc,48,149,bt_hdr,16,s.bt_connected and C.green or C.blue,396)
-  pill(sc,30,174,206,44,is_bt and "输出: 蓝牙音频" or "输出: 机身喇叭",20,is_bt,C.blue,C.dark)
-  pill(sc,244,174,206,44,"搜索 / 选择蓝牙 >",20,true,C.teal,C.dark)
+  pill(sc,30,174,206,44,is_bt and (s.audio_target=="airplay" and "输出: AirPlay" or "输出: 蓝牙音频") or "输出: 机身喇叭",20,is_bt,C.blue,C.dark)
+  pill(sc,244,174,206,44,"选择音频 >",20,true,C.teal,C.dark)
 
   -- Row 3: Screen Brightness (y=234..306)
   sc:fill_round_rect(20,234,440,72,14,C.panel)

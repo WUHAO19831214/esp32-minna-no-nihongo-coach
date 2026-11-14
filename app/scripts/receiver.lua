@@ -85,12 +85,32 @@ app:post("/events",function(req)
   return {json={ok=true,event=pending_event}}
 end)
 
+local function restore_badge_receiver()
+  -- Called ONLY by the explicit badge handoff. Fixed existing entry point;
+  -- never stop jobs, overwrite files, or accept a caller-supplied script.
+  local path=storage.join_path(storage.get_root_dir(),"apps","ai_mac_mini","scripts","receiver.lua")
+  if not storage.exists(path) then return {json={ok=false,state="badge_not_installed"}} end
+  local known=dofile(root.."/scripts/ownership.lua").jobs(thread,path)
+  local lok,listing=thread.list("running")
+  if not known or not lok then return {json={ok=false,state="jobs_unknown"}} end
+  if #known>0 then return {json={ok=true,state="already_running"}} end
+  local count=0
+  for line in listing:gmatch("[^\n]+") do
+    if line:find("path=",1,true) then count=count+1 end
+  end
+  if count>=4 then return {json={ok=false,state="slots_full"}} end
+  local ok,out=thread.start(path,{}, {name="ai_mac_mini_receiver",exclusive="ai_mac_mini_receiver",replace=false,timeout_ms=0})
+  return {json={ok=ok==true,result=out,state=ok and "receiver_started" or "receiver_start_failed"}}
+end
+
 app:post("/control",function(req)
   local d=authorize(req)
   if not d then return {status=403,json={ok=false}} end
   if d.action=="publish" then
     local ok,out,err=capability.call("publish_app",{app_id="minna_nihongo"},{max_output_bytes=2048})
     return {json={ok=ok,result=out,error=err}}
+  elseif d.action=="restore_badge_receiver" then
+    return restore_badge_receiver()
   elseif d.action=="start" or d.action=="verify" then
     pcall(function() dofile(root.."/scripts/ownership.lua").activate(thread) end)
     while thread.sync.queue_recv("minna_nihongo_lifecycle",0) do end

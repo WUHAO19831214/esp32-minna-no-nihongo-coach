@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import csv
+import datetime as dt
 import json
+import os
 from pathlib import Path
 import random
 import re
@@ -10,25 +12,21 @@ import sys
 import uuid
 from typing import Any
 
-AGENT_ROOT = Path(
-    "/Users/wuhao/LocalProjects/Codex/macmini/local-teaching-agent/minna-no-nihongo-agent"
-)
+AGENT_ROOT = Path(os.environ.get(
+    "MINNA_AGENT_ROOT",
+    str(Path.home() / "LocalProjects/Codex/macmini/local-teaching-agent/minna-no-nihongo-agent"),
+)).expanduser().resolve()
 MATERIALS_DIR = AGENT_ROOT / "data" / "materials" / "japanese" / "minna_no_nihongo"
 STRUCTURED_DIR = AGENT_ROOT / "data" / "structured" / "japanese" / "minna_no_nihongo"
 STUDENTS_DIR = AGENT_ROOT / "data" / "students"
 GRAPHS_DIR = AGENT_ROOT / "data" / "graphs"
 
-COMMON_PARTICLES = ["は", "を", "へ", "に", "で", "が", "と", "も", "の", "から", "まで", "か"]
-PARTICLE_CONFUSIONS = {
-    "を": ["へ", "に", "で"],
-    "へ": ["を", "で", "が"],
-    "に": ["を", "で", "と"],
-    "で": ["に", "を", "へ"],
-    "は": ["を", "に", "へ"],
-    "が": ["を", "へ", "で"],
-    "と": ["を", "に", "へ"],
-    "の": ["を", "に", "で"],
-}
+if str(AGENT_ROOT) not in sys.path:
+    sys.path.insert(0, str(AGENT_ROOT))
+from quiz_bank import (
+    CONTENT_VERSION, finalize, make_question, question_id, resolve_review,
+    review_question, translation_question, validate_question,
+)
 
 
 def normalize_lesson(lesson: str | int) -> str:
@@ -103,12 +101,14 @@ def load_lesson_grammar(lesson: str) -> list[dict[str, Any]]:
 
 def load_lesson_sentences(lesson: str) -> list[dict[str, str]]:
     lid = normalize_lesson(lesson)
-    rows = read_csv(STRUCTURED_DIR / f"lesson_{lid}" / "examples.csv")
+    source_path = STRUCTURED_DIR / f"lesson_{lid}" / "examples.csv"
+    rows = read_csv(source_path)
     if not rows:
-        rows = read_csv(MATERIALS_DIR / f"lesson_{lid}" / "sentences.csv")
+        source_path = MATERIALS_DIR / f"lesson_{lid}" / "sentences.csv"
+        rows = read_csv(source_path)
     out = []
     seen = set()
-    for r in rows:
+    for row_index, r in enumerate(rows, start=2):
         sent = (r.get("sentence") or r.get("text") or "").strip()
         meaning = (r.get("meaning") or r.get("translation") or r.get("explanation") or "").strip()
         label = (r.get("label") or "例句").strip()
@@ -118,6 +118,8 @@ def load_lesson_sentences(lesson: str) -> list[dict[str, str]]:
         seen.add(sent)
         out.append({
             "sentence": sent,
+            "source_ref": f"{source_path.relative_to(AGENT_ROOT)}:{row_index}",
+            "source_section": r.get("source_section", ""),
             "meaning": meaning,
             "label": label,
             "pattern": pattern,
@@ -175,212 +177,103 @@ def build_flashcards(lesson: str, category: str = "vocab", limit: int = 24) -> l
     return cards
 
 
-def _find_particle_span(s: str, p: str) -> int:
-    """Find a genuine grammatical particle `p` in sentence `s` (avoiding copula です/でした or verb endings)."""
-    search_from = 1
-    while True:
-        idx = s.find(p, search_from)
-        if idx <= 0:
-            return -1
-        search_from = idx + 1
-        after = s[idx + len(p) :]
-        prev_ch = s[idx - 1]
-        # Never split です / でした / ですね / ですか / でしょう / でも / では
-        if p == "で" and after.startswith(("す", "した", "しょう", "も", "は")):
+def _student_interactions(student_id: str) -> list[dict[str, Any]]:
+    path = STUDENTS_DIR / student_id / "interaction_log.jsonl"
+    if not path.exists():
+        return []
+    records = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        try:
+            record = json.loads(line)
+            if isinstance(record, dict):
+                records.append(record)
+        except ValueError:
             continue
-        # Never split ません / ました / ます / ましょう
-        if prev_ch == "ま" and after.startswith(("す", "した", "せん", "しょう")):
-            continue
-        # Prefer particles right after Kanji, Katakana, digits, or common pronouns (わたし/あなた/ここ/そこ/あそこ/どこ/だれ/なに)
-        prefix = s[:idx]
-        if (
-            ("\u4e00" <= prev_ch <= "\u9fff")
-            or ("\u30a0" <= prev_ch <= "\u30ff")
-            or prefix.endswith(("わたし", "あなた", "かれ", "かのじょ", "ここ", "そこ", "あそこ", "どこ", "だれ", "なに", "なん", "これ", "それ", "あれ", "どれ", "きょう", "あした", "きのう", "いま"))
-        ):
-            return idx
-    return -1
+    return records
 
 
-def _make_blank_question(sent_row: dict[str, str], rng: random.Random) -> dict[str, Any] | None:
-    s = sent_row["sentence"]
-    for p, distractors in PARTICLE_CONFUSIONS.items():
-        idx = _find_particle_span(s, p)
-        if idx > 0:
-            prompt = s[:idx] + "（　）" + s[idx + len(p) :]
-            wrongs = rng.sample(distractors, 2)
-            opts = [p] + wrongs
-            rng.shuffle(opts)
-            correct_idx = opts.index(p) + 1
-            return {
-                "mode": "fill_blank",
-                "mode_label": "填空练习",
-                "lesson": sent_row["lesson"],
-                "prompt": prompt[:34],
-                "hint": (sent_row["meaning"] or sent_row["label"])[:28],
-                "options": opts,
-                "correct": correct_idx,
-                "answer_sentence": s,
-                "expected_answer": p,
-                "source_sentence": s,
-                "target_label": sent_row["label"],
-                "target_pattern": sent_row["pattern"],
-                "explanation": f"正确助词「{p}」：{sent_row['label']} ({sent_row['pattern'] or s})"[:46],
-                "speak": s,
-            }
-    return None
+def _review_due(item: dict[str, Any]) -> bool:
+    if item.get("status") not in {"new", "reviewing"}:
+        return False
+    try:
+        due = dt.datetime.fromisoformat(item.get("next_review_at") or "")
+        if due.tzinfo is None:
+            return False
+        return due <= dt.datetime.now(dt.timezone.utc)
+    except ValueError:
+        return item.get("status") == "new"
 
 
-def _make_correction_question(sent_row: dict[str, str], all_sents: list[dict[str, str]], rng: random.Random) -> dict[str, Any] | None:
-    s = sent_row["sentence"]
-    for p, distractors in PARTICLE_CONFUSIONS.items():
-        idx = _find_particle_span(s, p)
-        if idx > 0:
-            wrong_p = distractors[0]
-            corrupted = s[:idx] + wrong_p + s[idx + len(p) :]
-            wrong2 = s[:idx] + distractors[1] + s[idx + len(p) :]
-            opts = [s[:20], corrupted[:20], wrong2[:20]]
-            if len(set(opts)) < 3:
-                continue
-            rng.shuffle(opts)
-            correct_idx = opts.index(s[:20]) + 1
-            return {
-                "mode": "correction",
-                "mode_label": "纠错重写",
-                "lesson": sent_row["lesson"],
-                "prompt": f"改错: {corrupted}"[:34],
-                "hint": f"原意: {sent_row['meaning'] or sent_row['label']}"[:28],
-                "options": opts,
-                "correct": correct_idx,
-                "answer_sentence": s,
-                "expected_answer": s,
-                "source_sentence": s,
-                "target_label": sent_row["label"],
-                "target_pattern": sent_row["pattern"],
-                "explanation": f"助词应为「{p}」而非「{wrong_p}」({sent_row['label']})"[:46],
-                "speak": s,
-            }
-    return None
-
-
-def _make_translation_question(sent_row: dict[str, str], all_sents: list[dict[str, str]], vocab: list[dict[str, str]], rng: random.Random) -> dict[str, Any] | None:
-    meaning = sent_row.get("meaning", "").strip()
-    s = sent_row.get("sentence", "").strip()
-    if meaning and s and meaning != s:
-        other_sents = [r["sentence"][:20] for r in all_sents if r["sentence"] != s and len(r["sentence"]) >= 4]
-        if len(other_sents) >= 2:
-            wrongs = rng.sample(other_sents, 2)
-            target = s[:20]
-            opts = [target] + wrongs
-            if len(set(opts)) == 3:
-                rng.shuffle(opts)
-                return {
-                    "mode": "translate_zh_to_ja",
-                    "mode_label": "中译日",
-                    "lesson": sent_row["lesson"],
-                    "prompt": f"中译日: {meaning}"[:34],
-                    "hint": f"语法: {sent_row['label']}"[:28],
-                    "options": opts,
-                    "correct": opts.index(target) + 1,
-                    "answer_sentence": s,
-                    "expected_answer": s,
-                    "source_sentence": s,
-                    "target_label": sent_row["label"],
-                    "target_pattern": sent_row["pattern"],
-                    "explanation": f"标准表达：{s[:28]}"[:46],
-                    "speak": s,
-                }
-    # Fallback to vocabulary translation
-    valid_v = [v for v in vocab if v.get("meaning") and v.get("word")]
-    if len(valid_v) >= 3:
-        v = rng.choice(valid_v)
-        others = [x["word"][:20] for x in valid_v if x["word"] != v["word"]]
-        wrongs = rng.sample(others, 2)
-        target = v["word"][:20]
-        opts = [target] + wrongs
-        rng.shuffle(opts)
-        return {
-            "mode": "translate_zh_to_ja",
-            "mode_label": "中译日",
-            "lesson": v["lesson"],
-            "prompt": f"中文：{v['meaning']}"[:34],
-            "hint": f"词性：{v['pos']} / 假名：{v['reading']}"[:28],
-            "options": opts,
-            "correct": opts.index(target) + 1,
-            "answer_sentence": v["word"],
-            "expected_answer": v["word"],
-            "source_sentence": v["word"],
-            "target_label": v["pos"],
-            "target_pattern": v["reading"],
-            "explanation": f"{v['word']}（{v['reading']}）：{v['meaning']}"[:46],
-            "speak": v["word"],
-        }
-    return None
-
-
-def generate_quiz_pack(lesson: str, mode: str = "fill_blank", count: int = 8) -> list[dict[str, Any]]:
+def generate_quiz_pack(lesson: str, mode: str = "fill_blank", count: int = 8,
+                       student_id: str = "default_student", *,
+                       include_student_reviews: bool = True) -> list[dict[str, Any]]:
     lid = normalize_lesson(lesson)
     sents = load_lesson_sentences(lid)
-    vocab = load_lesson_vocab(lid)
-    rng = random.Random()
-    items: list[dict[str, Any]] = []
-
-    if mode == "review":
-        rq = read_json(STUDENTS_DIR / "default_student" / "review_queue.json", [])
-        active_rq = [r for r in rq if isinstance(r, dict) and r.get("status") != "mastered"]
-        for r in active_rq[:count]:
-            wrong_sent = (r.get("sentence") or "").strip()
-            lbl = (r.get("final_label") or r.get("predicted_label") or "错题复习").strip()
-            diag = (r.get("final_diagnosis") or r.get("diagnosis") or "请选出正确表达").strip()
-            if wrong_sent:
-                for p, distractors in PARTICLE_CONFUSIONS.items():
-                    if p in wrong_sent:
-                        fixed = wrong_sent.replace(p, distractors[0], 1)
-                        alt = wrong_sent.replace(p, distractors[1], 1)
-                        opts = [fixed[:20], wrong_sent[:20], alt[:20]]
-                        rng.shuffle(opts)
-                        items.append({
-                            "mode": "review",
-                            "mode_label": "错题巩固",
-                            "lesson": r.get("lesson") or lid,
-                            "prompt": f"错题重做: {wrong_sent}"[:34],
-                            "hint": diag[:28],
-                            "options": opts,
-                            "correct": opts.index(fixed[:20]) + 1,
-                            "answer_sentence": fixed,
-                            "expected_answer": fixed,
-                            "source_sentence": fixed,
-                            "target_label": lbl,
-                            "target_pattern": lbl,
-                            "explanation": f"错题诊断：{diag}"[:46],
-                            "speak": fixed,
-                        })
-                        break
-
+    # Repeatable across the offline bundle and every host rebuild.
+    rng = random.Random(f"{CONTENT_VERSION}:{student_id}:{lid}:{mode}")
     pool = list(sents)
     rng.shuffle(pool)
+    items: list[dict[str, Any]] = []
+    if mode == "review":
+        queue = read_json(STUDENTS_DIR / student_id / "review_queue.json", []) if include_student_reviews else []
+        interactions = _student_interactions(student_id) if include_student_reviews and queue else []
+        for item in queue if isinstance(queue, list) else []:
+            if not _review_due(item):
+                continue
+            if normalize_lesson(item.get("lesson") or lid) != lid:
+                continue
+            row = resolve_review(item, sents, interactions)
+            if row:
+                q = review_question(item, row, sents, rng)
+                if q:
+                    items.append(q)
+            if len(items) >= count:
+                break
+        # Explicitly labelled textbook revision when no verified error is available.
+        if not items:
+            for row in pool:
+                q = make_question(row, "fill_blank", rng)
+                if q:
+                    q.update(mode="review", mode_label="教材复习")
+                    items.append(finalize(q))
+                if len(items) >= count:
+                    break
+        return items[:count]
+
+    groups: dict[str, list[dict[str, Any]]] = {}
     for row in pool:
-        if len(items) >= count:
-            break
-        q = None
-        if mode in {"fill_blank", "review"}:
-            q = _make_blank_question(row, rng)
-        elif mode == "correction":
-            q = _make_correction_question(row, sents, rng)
-        elif mode == "translate_zh_to_ja":
-            q = _make_translation_question(row, sents, vocab, rng)
+        q = (translation_question(row, sents, rng) if mode == "translate_zh_to_ja"
+             else make_question(row, mode, rng) if mode in {"fill_blank", "correction"} else None)
         if q:
-            items.append(q)
-
-    # Fill remaining with vocab/blank fallback if needed
-    while len(items) < max(3, min(count, 6)):
-        q = _make_translation_question(pool[len(items) % len(pool)] if pool else {}, sents, vocab, rng)
-        if q:
-            items.append(q)
-        else:
-            break
-
+            groups.setdefault(q["target_label"] + ":" + q["target_pattern"], []).append(q)
+    # Cover multiple grammar points before repeating a single point.
+    while any(groups.values()) and len(items) < count:
+        for group in groups.values():
+            if group and len(items) < count:
+                items.append(group.pop(0))
     return items
+
+
+def resolve_quiz_event(event: dict[str, Any], snapshot: dict[str, Any]) -> dict[str, Any] | None:
+    """A question index alone cannot identify an offline/randomized question."""
+    qid = event.get("question_id")
+    if not qid:
+        return None
+    lid = normalize_lesson(event.get("lesson") or "")
+    mode = event.get("quiz_mode")
+    candidates = list((snapshot.get("quizzes_by_mode") or {}).get(mode) or [])
+    bundle_path = Path(__file__).resolve().parents[1] / "app/lessons" / f"L{int(lid):02d}.json"
+    bundle = read_json(bundle_path, {})
+    candidates.extend((bundle.get("quizzes_by_mode") or {}).get(mode) or [])
+    for q in candidates:
+        if q.get("question_id") == qid and q.get("lesson") == lid and q.get("mode") == mode:
+            try:
+                validate_question(q)
+            except ValueError:
+                continue
+            if question_id(q) == qid:
+                return q
+    return None
 
 
 def record_quiz_submission(
@@ -391,26 +284,44 @@ def record_quiz_submission(
 ) -> dict[str, Any]:
     """Record ESP32 quiz answer directly into minna-no-nihongo-agent student profile & review queue."""
     lid = normalize_lesson(lesson)
+    try:
+        validate_question(quiz_item)
+        if (quiz_item.get("question_id") != question_id(quiz_item)
+                or quiz_item.get("lesson") != lid
+                or not 1 <= chosen_index <= 3
+                or quiz_item.get("source_sentence") not in {
+                    r["sentence"] for r in load_lesson_sentences(lid)
+                }):
+            raise ValueError("Unknown, stale or mismatched question")
+    except (ValueError, TypeError):
+        return {"ok": False, "error": "unverified_question", "recorded": False}
     options = quiz_item.get("options") or []
     correct_idx = int(quiz_item.get("correct") or 1)
     is_correct = chosen_index == correct_idx
     chosen_text = options[chosen_index - 1] if 1 <= chosen_index <= len(options) else ""
     expected_sent = quiz_item.get("answer_sentence") or chosen_text
 
-    if quiz_item.get("mode") == "fill_blank" and "（　）" in str(quiz_item.get("prompt", "")):
-        student_sentence = str(quiz_item["prompt"]).replace("（　）", chosen_text, 1)
+    if "（　）" in str(quiz_item.get("prompt", "")):
+        # A grouped を／が option is one correct choice, not a literal Japanese particle.
+        student_sentence = expected_sent if is_correct else str(quiz_item["prompt"]).replace("（　）", chosen_text, 1)
     else:
         student_sentence = expected_sent if is_correct else chosen_text
 
     label = str(quiz_item.get("target_label") or "语法练习")
     pattern = str(quiz_item.get("target_pattern") or "")
-    diagnosis = "表达自然，未发现明显基础语法错误。" if is_correct else f"ESP32练习误选「{chosen_text}」，正确应为「{options[correct_idx - 1] if 1 <= correct_idx <= len(options) else expected_sent}」。"
+    diagnosis = "未发现明显基础错误。" if is_correct else f"ESP32练习误选「{chosen_text}」，正确应为「{options[correct_idx - 1] if 1 <= correct_idx <= len(options) else expected_sent}」。"
+
+    if quiz_item.get("review_error_id"):
+        queue = read_json(STUDENTS_DIR / student_id / "review_queue.json", [])
+        review_item = next((r for r in queue if r.get("error_id") == quiz_item["review_error_id"]), None)
+        if not review_item or not _review_due(review_item):
+            return {"ok": True, "is_correct": is_correct, "recorded": False, "reason": "review_not_due"}
 
     try:
         if str(AGENT_ROOT) not in sys.path:
             sys.path.insert(0, str(AGENT_ROOT))
         from app.student_profile import ensure_student_profile, log_interaction
-        from app.review_manager import record_error_if_needed
+        from app.review_manager import record_error_if_needed, update_review_result
 
         ensure_student_profile(student_id, "japanese", "minna_no_nihongo", lid)
         session_id = f"esp32-{uuid.uuid4().hex[:12]}"
@@ -421,6 +332,7 @@ def record_quiz_submission(
             predicted_label=label,
             confidence=0.98 if is_correct else 0.65,
             diagnosis=diagnosis,
+            update_mastery_stats=not bool(quiz_item.get("review_error_id")),
             use_ollama=False,
             subject="japanese",
             course="minna_no_nihongo",
@@ -443,7 +355,13 @@ def record_quiz_submission(
             target_pattern=pattern,
             answer_exact_match=is_correct,
         )
-        if not is_correct:
+        if quiz_item.get("review_error_id"):
+            update_review_result(
+                student_id=student_id, error_id=quiz_item["review_error_id"],
+                is_correct=is_correct, label=label, confidence=1.0,
+                session_id=session_id, lesson=lid,
+            )
+        elif not is_correct:
             record_error_if_needed(
                 student_id=student_id,
                 session_id=session_id,
@@ -457,6 +375,9 @@ def record_quiz_submission(
                 final_label=label,
                 final_diagnosis=diagnosis,
                 archive_status="safe",
+                correct_sentence=expected_sent,
+                source_sentence=quiz_item["source_sentence"],
+                question_id=quiz_item["question_id"],
             )
     except Exception as exc:
         return {"ok": False, "is_correct": is_correct, "error": str(exc)}
@@ -483,7 +404,7 @@ def get_student_summary(student_id: str = "default_student") -> dict[str, Any]:
                     mastered_labels += 1
 
     accuracy = int(round(100.0 * correct_total / max(1, total_interactions))) if total_interactions > 0 else 100
-    pending_reviews = sum(1 for r in rq if isinstance(r, dict) and r.get("status") != "mastered") if isinstance(rq, list) else 0
+    pending_reviews = sum(1 for r in rq if isinstance(r, dict) and r.get("status") in {"new", "reviewing"}) if isinstance(rq, list) else 0
 
     rec_list = recs.get("recommendations") if isinstance(recs, dict) else []
     gnn_focus = rec_list[0].get("target_label", "判断句") if rec_list else "地点へ行きます"
@@ -504,6 +425,8 @@ def get_student_summary(student_id: str = "default_student") -> dict[str, Any]:
 def build_lesson_bundle(
     lesson_num: int,
     student_id: str = "default_student",
+    *,
+    include_student_reviews: bool = True,
 ) -> dict[str, Any]:
     """Build a complete self-contained lesson bundle (all 3 flashcard categories, all 4 quiz modes, and all audio tracks)."""
     from audio_engine import get_lesson_tracks
@@ -526,7 +449,8 @@ def build_lesson_bundle(
         for cat in ("vocab", "grammar", "sentence")
     }
     quizzes_by_mode = {
-        mode: generate_quiz_pack(lid, mode=mode, count=8)
+        mode: generate_quiz_pack(lid, mode=mode, count=8, student_id=student_id,
+                                 include_student_reviews=include_student_reviews)
         for mode in ("fill_blank", "correction", "translate_zh_to_ja", "review")
     }
     tracks = [
@@ -539,6 +463,7 @@ def build_lesson_bundle(
         for t in get_lesson_tracks(lid)
     ]
     return {
+        "content_version": CONTENT_VERSION,
         "lesson": lesson_num,
         "cards_by_cat": cards_by_cat,
         "quizzes_by_mode": quizzes_by_mode,
@@ -561,8 +486,9 @@ def build_device_snapshot(
     bundle = build_lesson_bundle(lesson_num=lesson_num, student_id=student_id)
     summary = get_student_summary(student_id=student_id)
     cards = bundle["cards_by_cat"].get(flash_cat) or bundle["cards_by_cat"]["vocab"]
-    quizzes = bundle["quizzes_by_mode"].get(quiz_mode) or bundle["quizzes_by_mode"]["fill_blank"]
+    quizzes = bundle["quizzes_by_mode"].get(quiz_mode, [])
     payload: dict[str, Any] = {
+        "content_version": CONTENT_VERSION,
         "epoch": int(dt.datetime.now(dt.timezone.utc).timestamp()),
         "lesson": lesson_num,
         "flash_cat": flash_cat,

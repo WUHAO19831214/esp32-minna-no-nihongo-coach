@@ -1,6 +1,8 @@
 """Audio catalog, ffmpeg A-B slicer, and Kyoko Japanese TTS encoder for ESP32 built-in speaker playback."""
 from __future__ import annotations
 
+from airplay import AIRPLAY
+
 import hashlib
 import json
 from pathlib import Path
@@ -261,6 +263,7 @@ class HostAudioPlayer:
         self._proc: subprocess.Popen | None = None
 
     def stop(self) -> None:
+        AIRPLAY.stop()
         if self._proc is not None:
             try:
                 self._proc.terminate()

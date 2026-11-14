@@ -24,7 +24,7 @@ s.leds_muted=prefs.leds_muted==true
 if prefs.haptic_enabled~=nil then s.haptic_enabled=prefs.haptic_enabled==true end
 s.slow_tts=prefs.slow_tts==true
 if prefs.single_loop~=nil then s.single_loop=(prefs.single_loop~=false) else s.single_loop=true end
-if prefs.audio_target=="bt" or prefs.audio_target=="esp32" then
+if prefs.audio_target=="bt" or prefs.audio_target=="esp32" or prefs.audio_target=="airplay" then
   s.audio_target=prefs.audio_target
 end
 
@@ -108,7 +108,7 @@ local function stop_clip()
 end
 
 local function play_clip_file()
-  if s.volume<=0 or s.audio_target=="bt" then
+  if s.volume<=0 or s.audio_target~="esp32" then
     stop_clip()
     return false
   end
@@ -179,7 +179,7 @@ local function handle_action_side_effects(act,now)
     if s.volume<=0 then stop_clip();s.playing=false end
     save_prefs()
   elseif act=="bt_toggle" or act=="bt_connect" then
-    if s.audio_target=="bt" then stop_clip() end
+    if s.audio_target~="esp32" then stop_clip() end
     save_prefs()
   elseif act=="prefs" or act=="leds_toggle" then
     save_prefs()
@@ -246,7 +246,7 @@ local function run()
       s.active_clip_seq=s.clip_seq
       s.waiting_next_chunk=false
       if s.playing then
-        if s.audio_target=="bt" then
+        if s.audio_target~="esp32" then
           stop_clip()
         else
           play_clip_file()
@@ -261,7 +261,7 @@ local function run()
       end
     end
 
-    if s.playing and s.audio_target~="bt" and player then
+    if s.playing and s.audio_target=="esp32" and player then
       local pok,pinfo=pcall(player.poll,player)
       if pok and pinfo and pinfo.state=="finished" then
         if s.ab_state=="loop" then
@@ -313,7 +313,7 @@ local function run()
           end
         end
       end
-    elseif s.playing and s.audio_target=="bt" and s.ab_state~="loop" then
+    elseif s.playing and s.audio_target~="esp32" and s.ab_state~="loop" then
       local pos,dur=model.current_play_sec(s,now)
       local clip_end=tonumber(s.play_clip_end) or dur
       if pos>=math.min(dur,clip_end) then
@@ -393,11 +393,15 @@ local function run()
     end
 
     if now-last_health>=1000 then
+      local active_quiz,_,quiz_total=model.current_quiz(s)
       local hraw=json.encode({
         page=s.page,
         lesson=s.lesson,
         flash_cat=s.flash_cat,
         quiz_mode=s.quiz_mode,
+        question_id=active_quiz.question_id,
+        content_version=active_quiz.content_version,
+        quiz_total=quiz_total,
         playing=s.playing,
         play_sec=pos_sec,
         ab_state=s.ab_state,
